@@ -1,30 +1,131 @@
 import questionary, json
-import pandas as pd 
+import pandas as pd
+from datetime import date, datetime
+from os import system
 
-datos = {
-    'Fecha': ['2026-04-12', '2026-04-14', '2026-04-14', '2026-04-14'],
-    'producto': ['laptop', 'monitor', 'teclado', ' mouse'],
-    'precio': ['8','7', '5','9'],
-    'cantidad':[2, 3, 4, 5]
-
+datos_excel = {
+    'Fecha': [],
+    'producto': [],
+    'precio': [],
+    'cantidad':[]
 }
-df = pd.DataFrame(datos)
-print(df)
 
-ingreso_fecha = input("Ingrese la Fecha: ")
-datos['Fecha'].append(ingreso_fecha)
+fecha_actual = date.today()
+Hora_actual = date.today().strftime("%H:%M:%S")
+utililidad = 0.0
 
-ingreso_producto = input("Ingrese el producto: ")
-datos['producto'].append(ingreso_producto)
+while True:
+    system("clear")
+    print("==================================================")
+    print("|            BIENVENIDO A EASYFINANCE            |")
+    print("==================================================")
+    print("|                                                |")
+    print("|           A continuacion seleccione            |")
+    print("|           la opcion que desea realizar         |")
+    print("|                                                |")
+    print("==================================================")
+    operaciones = questionary.select(
+        "",
+        instruction="(Use las flechas para moverse)",
+        choices=[
+            "> [Registrar ingreso]",
+            "> [Registrar egreso]",
+            "> [Registrar envío]",
+            "> [Ver utilidad total]",
+            "> [Reporte mensual]",
+            "> [Salir]"
+        ]
+    ).ask()
 
-ingreso_precio = input("Ingrese el precio: ")
-datos['precio'].append(ingreso_precio)
+    if operaciones == "> [Registrar ingreso]":
+        system("clear")
 
-ingreso_cantidad = input("Ingrese la Cantidad: ")
-datos['cantidad'].append(ingreso_cantidad)
+        ingreso_fecha = fecha_actual
+        datos_excel['Fecha'].append(ingreso_fecha)
 
-df = pd.DataFrame(datos)
-print(df)
+        ingreso_producto = input("Ingrese el producto: ")
+        datos_excel['producto'].append(ingreso_producto)
 
-df.to_excel("archivo_pandas.xlsx", index=False, sheet_name="Datos")
+        ingreso_precio = float(input("Ingrese el precio: "))
+        datos_excel['precio'].append(ingreso_precio)
 
+        ingreso_cantidad = int(input("Ingrese la Cantidad: "))
+        datos_excel['cantidad'].append(ingreso_cantidad)
+
+        df = pd.DataFrame(datos_excel)
+        print(df)
+        input()
+
+        utililidad += (ingreso_precio * ingreso_cantidad)
+
+        df.to_excel(f"archivo_pandas_{fecha_actual}.xlsx", index=False, sheet_name="Datos")
+
+    elif operaciones == "> [Registrar egreso]":
+        system("clear")
+
+        ingreso_fecha = fecha_actual
+        datos_excel['Fecha'].append(ingreso_fecha)
+
+        ingreso_producto = input("Ingrese el producto: ")
+        datos_excel['producto'].append(ingreso_producto)
+
+        ingreso_precio = float(input("Ingrese el precio: "))
+        datos_excel['precio'].append(ingreso_precio)
+
+        ingreso_cantidad = int(input("Ingrese la Cantidad: "))
+        datos_excel['cantidad'].append(ingreso_cantidad)
+
+        df = pd.DataFrame(datos_excel)
+        print(df)
+        input()
+        utililidad -= (ingreso_precio * ingreso_cantidad)
+
+        with open(f"archivo_pandas_{fecha_actual}.xlsx", "a", encoding="utf-8") as f :
+            df.to_excel(f"archivo_pandas_{fecha_actual}.xlsx", index=False, sheet_name="Datos")
+
+    elif operaciones == "> [Registrar envío]":
+        system("clear")
+
+        ingreso_fecha = fecha_actual
+        datos_excel['Fecha'].append(ingreso_fecha)
+
+        ingreso_producto = input("Ingrese el producto: ")
+        datos_excel['producto'].append(ingreso_producto)
+
+        ingreso_precio = float(input("Ingrese el precio: "))
+        datos_excel['precio'].append(ingreso_precio)
+
+        ingreso_cantidad = int(input("Ingrese la Cantidad: "))
+        datos_excel['cantidad'].append(ingreso_cantidad)
+
+        df = pd.DataFrame(datos_excel)
+        print(df)
+        input()
+
+        utililidad -= (ingreso_precio * ingreso_cantidad)
+
+        with open(f"archivo_pandas_{fecha_actual}.xlsx", "a", encoding="utf-8") as f :
+            df.to_excel(f"archivo_pandas_{fecha_actual}.xlsx", index=False, sheet_name="Datos")
+
+    elif operaciones == "> [Ver utilidad total]":
+        system("clear")
+
+        print("--------------------------------------------------")
+        print("|                                                |")
+        print(f"|   La utilidad total es: ${utililidad:.2f}      |")
+        print("|                                                |")
+        print("--------------------------------------------------")
+
+    elif operaciones == "> [Reporte mensual]":
+        system("clear")
+
+        print("==================================================")
+        print("|                                                |")
+        print("|           A continuacion seleccione            |")
+        print("|            Que mes desea visualizar            |")
+        print("|                                                |")
+        print("==================================================")
+
+        mes_dic = datos_excel['Fecha']
+        mes = datetime.strftime(mes_dic, "%Y-%m-%d").month
+        print(f"El mes actual es: {mes}")

@@ -1,17 +1,28 @@
-import questionary, json
+import questionary
 import pandas as pd
 from datetime import date, datetime
 from os import system
+from time import sleep
+from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 
 datos_excel = {
     'Fecha': [],
-    'producto': [],
-    'precio': [],
-    'cantidad':[]
+    'Producto': [],
+    'Precio': [],
+    'Cantidad': [],
+    'Tipo': []
 }
 
-fecha_actual = date.today()
-Hora_actual = date.today().strftime("%H:%M:%S")
+datos_utilidad = {
+    'Ingresos Totales': [],
+    'Egresos Totales': [],
+    'Envíos Totales': [],
+    'Utilidad Neta': []
+}
+
+fecha_actual = date.today().strftime("%Y/%m/%d")
+fecha_actual2 = date.today().strftime("%Y-%m-%d")
+Hora_actual = datetime.now().strftime("%H:%M:%S")
 utililidad = 0.0
 
 while True:
@@ -44,21 +55,26 @@ while True:
         datos_excel['Fecha'].append(ingreso_fecha)
 
         ingreso_producto = input("Ingrese el producto: ")
-        datos_excel['producto'].append(ingreso_producto)
+        datos_excel['Producto'].append(ingreso_producto)
 
         ingreso_precio = float(input("Ingrese el precio: "))
-        datos_excel['precio'].append(ingreso_precio)
+        datos_excel['Precio'].append(ingreso_precio)
 
         ingreso_cantidad = int(input("Ingrese la Cantidad: "))
-        datos_excel['cantidad'].append(ingreso_cantidad)
+        datos_excel['Cantidad'].append(ingreso_cantidad)
 
-        df = pd.DataFrame(datos_excel)
-        print(df)
-        input()
+        datos_excel['Tipo'].append("+(Ingreso)")
 
         utililidad += (ingreso_precio * ingreso_cantidad)
 
-        df.to_excel(f"archivo_pandas_{fecha_actual}.xlsx", index=False, sheet_name="Datos")
+        try:
+            df = pd.read_excel("Reporte-EasyFinance.xlsx", sheet_name="Datos")
+
+        except FileNotFoundError:
+            df = pd.DataFrame(datos_excel)
+
+        df = pd.concat([df, pd.DataFrame(datos_excel)], ignore_index=True)
+        df.to_excel(f"Reporte-EasyFinance.xlsx", index=False, sheet_name="Datos")
 
     elif operaciones == "> [Registrar egreso]":
         system("clear")
@@ -67,21 +83,24 @@ while True:
         datos_excel['Fecha'].append(ingreso_fecha)
 
         ingreso_producto = input("Ingrese el producto: ")
-        datos_excel['producto'].append(ingreso_producto)
+        datos_excel['Producto'].append(ingreso_producto)
 
         ingreso_precio = float(input("Ingrese el precio: "))
-        datos_excel['precio'].append(ingreso_precio)
+        datos_excel['Precio'].append(ingreso_precio)
 
         ingreso_cantidad = int(input("Ingrese la Cantidad: "))
-        datos_excel['cantidad'].append(ingreso_cantidad)
+        datos_excel['Cantidad'].append(ingreso_cantidad)
 
-        df = pd.DataFrame(datos_excel)
-        print(df)
-        input()
-        utililidad -= (ingreso_precio * ingreso_cantidad)
+        datos_excel['Tipo'].append("-(Egreso)")
 
-        with open(f"archivo_pandas_{fecha_actual}.xlsx", "a", encoding="utf-8") as f :
-            df.to_excel(f"archivo_pandas_{fecha_actual}.xlsx", index=False, sheet_name="Datos")
+        try:
+            df = pd.read_excel("Reporte-EasyFinance.xlsx", sheet_name="Datos")
+
+        except FileNotFoundError:
+            df = pd.DataFrame(datos_excel)
+
+        df = pd.concat([df, pd.DataFrame(datos_excel)], ignore_index=True)
+        df.to_excel(f"Reporte-EasyFinance.xlsx", index=False, sheet_name="Datos")
 
     elif operaciones == "> [Registrar envío]":
         system("clear")
@@ -90,22 +109,26 @@ while True:
         datos_excel['Fecha'].append(ingreso_fecha)
 
         ingreso_producto = input("Ingrese el producto: ")
-        datos_excel['producto'].append(ingreso_producto)
+        datos_excel['Producto'].append(ingreso_producto)
 
         ingreso_precio = float(input("Ingrese el precio: "))
-        datos_excel['precio'].append(ingreso_precio)
+        datos_excel['Precio'].append(ingreso_precio)
 
         ingreso_cantidad = int(input("Ingrese la Cantidad: "))
-        datos_excel['cantidad'].append(ingreso_cantidad)
+        datos_excel['Cantidad'].append(ingreso_cantidad)
 
-        df = pd.DataFrame(datos_excel)
-        print(df)
-        input()
+        datos_excel['Tipo'].append("-(Envío)")
+
+        try:
+            df = pd.read_excel("Reporte-EasyFinance.xlsx", sheet_name="Datos")
+
+        except FileNotFoundError:
+            df = pd.DataFrame(datos_excel)
 
         utililidad -= (ingreso_precio * ingreso_cantidad)
 
-        with open(f"archivo_pandas_{fecha_actual}.xlsx", "a", encoding="utf-8") as f :
-            df.to_excel(f"archivo_pandas_{fecha_actual}.xlsx", index=False, sheet_name="Datos")
+        df = pd.concat([df, pd.DataFrame(datos_excel)], ignore_index=True)
+        df.to_excel(f"Reporte-EasyFinance.xlsx", index=False, sheet_name="Datos")
 
     elif operaciones == "> [Ver utilidad total]":
         system("clear")
@@ -125,7 +148,14 @@ while True:
         print("|            Que mes desea visualizar            |")
         print("|                                                |")
         print("==================================================")
+        system("xdg-open Reporte-EasyFinance.xlsx")
 
-        mes_dic = datos_excel['Fecha']
-        mes = datetime.strftime(mes_dic, "%Y-%m-%d").month
-        print(f"El mes actual es: {mes}")
+    elif operaciones == "> [Salir]":
+        system("clear")
+        print("==================================================")
+        print("|                                                |")
+        print("|          Gracias por usar EasyFinance          |")
+        print("|                                                |")
+        print("==================================================")
+        sleep(2)
+        quit()

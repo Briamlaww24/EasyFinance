@@ -3,7 +3,13 @@ import pandas as pd
 from datetime import date, datetime
 from os import system
 from time import sleep
+from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
+from b_login import main_login
+import func
+
+system("clear")
+main_login()
 
 datos_nuevos = {
     'Fecha': [],
@@ -75,6 +81,8 @@ while True:
 
         df = pd.concat([df, pd.DataFrame([datos_nuevos])], ignore_index=True)
         df.to_excel(f"Reporte-EasyFinance.xlsx", index=False, sheet_name="Datos")
+
+        func.formatear_excel()
         
     elif operaciones == "> [Registrar egreso]":
         system("clear")
@@ -101,6 +109,8 @@ while True:
 
         df = pd.concat([df, pd.DataFrame([datos_nuevos])], ignore_index=True)
         df.to_excel(f"Reporte-EasyFinance.xlsx", index=False, sheet_name="Datos")
+
+        func.formatear_excel()
 
     elif operaciones == "> [Registrar envío]":
         system("clear")
@@ -129,6 +139,8 @@ while True:
 
         df = pd.concat([df, pd.DataFrame([datos_nuevos])], ignore_index=True)
         df.to_excel(f"Reporte-EasyFinance.xlsx", index=False, sheet_name="Datos")
+
+        func.formatear_excel()
 
     elif operaciones == "> [Ver utilidad total]":
         system("clear")

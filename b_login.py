@@ -39,3 +39,4 @@ def main_login():
 
         elif respueta == "Salir":
             quit()
+    return usr

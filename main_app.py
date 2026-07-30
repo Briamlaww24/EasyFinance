@@ -1,5 +1,5 @@
-import questionary
-import pandas as pd
+from questionary import select
+from pandas import DataFrame, read_excel, concat
 from datetime import date, datetime
 from os import system
 from time import sleep
@@ -9,7 +9,7 @@ from b_login import main_login
 import func
 
 system("clear")
-main_login()
+Usuario_actual = main_login()
 
 datos_nuevos = {
     'Fecha': [],
@@ -41,7 +41,7 @@ while True:
     print("|           la opcion que desea realizar         |")
     print("|                                                |")
     print("==================================================")
-    operaciones = questionary.select(
+    operaciones = select(
         "",
         instruction="(Use las flechas para moverse)",
         choices=[
@@ -74,13 +74,13 @@ while True:
         utililidad += (ingreso_precio * ingreso_cantidad)
 
         try:
-            df = pd.read_excel("Reporte-EasyFinance.xlsx", sheet_name="Datos")
+            df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
 
         except FileNotFoundError:
-            df = pd.DataFrame(columns=["Fecha", "Producto", "Precio", "Cantidad", "Tipo"])
+            df = DataFrame(columns=["Fecha", "Producto", "Precio", "Cantidad", "Tipo"])
 
-        df = pd.concat([df, pd.DataFrame([datos_nuevos])], ignore_index=True)
-        df.to_excel(f"Reporte-EasyFinance.xlsx", index=False, sheet_name="Datos")
+        df = concat([df, DataFrame([datos_nuevos])], ignore_index=True)
+        df.to_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", index=False, sheet_name="Datos")
 
         func.formatear_excel()
         
@@ -102,13 +102,13 @@ while True:
         datos_nuevos['Tipo'] = "-(Egreso)"
 
         try:
-            df = pd.read_excel("Reporte-EasyFinance.xlsx", sheet_name="Datos")
+            df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
 
         except FileNotFoundError:
-            df = pd.DataFrame(columns=["Fecha", "Producto", "Precio", "Cantidad", "Tipo"])
+            df = DataFrame(columns=["Fecha", "Producto", "Precio", "Cantidad", "Tipo"])
 
-        df = pd.concat([df, pd.DataFrame([datos_nuevos])], ignore_index=True)
-        df.to_excel(f"Reporte-EasyFinance.xlsx", index=False, sheet_name="Datos")
+        df = concat([df, DataFrame([datos_nuevos])], ignore_index=True)
+        df.to_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", index=False, sheet_name="Datos")
 
         func.formatear_excel()
 
@@ -130,15 +130,15 @@ while True:
         datos_nuevos['Tipo'] = "-(Envío)"
 
         try:
-            df = pd.read_excel("Reporte-EasyFinance.xlsx", sheet_name="Datos")
+            df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
 
         except FileNotFoundError:
-            df = pd.DataFrame(columns=["Fecha", "Producto", "Precio", "Cantidad", "Tipo"])
+            df = DataFrame(columns=["Fecha", "Producto", "Precio", "Cantidad", "Tipo"])
 
         utililidad -= (ingreso_precio * ingreso_cantidad)
 
-        df = pd.concat([df, pd.DataFrame([datos_nuevos])], ignore_index=True)
-        df.to_excel(f"Reporte-EasyFinance.xlsx", index=False, sheet_name="Datos")
+        df = concat([df, DataFrame([datos_nuevos])], ignore_index=True)
+        df.to_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", index=False, sheet_name="Datos")
 
         func.formatear_excel()
 
@@ -161,7 +161,7 @@ while True:
         print("|            Que mes desea visualizar            |")
         print("|                                                |")
         print("==================================================")
-        system("xdg-open Reporte-EasyFinance.xlsx")
+        system(f"xdg-open Reporte-EasyFinance-{Usuario_actual}.xlsx")
 
     elif operaciones == "> [Salir]":
         system("clear")

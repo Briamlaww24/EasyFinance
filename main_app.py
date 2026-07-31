@@ -5,11 +5,11 @@ from os import system
 from time import sleep
 from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
-from b_login import main_login
+
 import func
 
 system("clear")
-Usuario_actual = main_login()
+Usuario_actual = func.main_login()
 
 datos_nuevos = {
     'Fecha': [],
@@ -82,7 +82,7 @@ while True:
         df = concat([df, DataFrame([datos_nuevos])], ignore_index=True)
         df.to_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", index=False, sheet_name="Datos")
 
-        func.formatear_excel()
+        func.formatear_excel(Usuario_actual)
         
     elif operaciones == "> [Registrar egreso]":
         system("clear")
@@ -110,7 +110,7 @@ while True:
         df = concat([df, DataFrame([datos_nuevos])], ignore_index=True)
         df.to_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", index=False, sheet_name="Datos")
 
-        func.formatear_excel()
+        func.formatear_excel(Usuario_actual)
 
     elif operaciones == "> [Registrar envío]":
         system("clear")
@@ -140,7 +140,7 @@ while True:
         df = concat([df, DataFrame([datos_nuevos])], ignore_index=True)
         df.to_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", index=False, sheet_name="Datos")
 
-        func.formatear_excel()
+        func.formatear_excel(Usuario_actual)
 
     elif operaciones == "> [Ver utilidad total]":
         system("clear")

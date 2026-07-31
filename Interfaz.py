@@ -1,5 +1,4 @@
 import tkinter as tk
-import func as fc
 
 main_window = tk.Tk()
 main_window.title("EasyFinance")

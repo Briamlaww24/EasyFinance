@@ -1,10 +1,12 @@
-import tkinter as tk
+import flet as ft
 
-main_window = tk.Tk()
-main_window.title("EasyFinance")
-main_window.geometry("800x600")
-main_window.config(
-    bg='#003400'
-)
+def main(page: ft.Page):
+    page.title = "EasyFinance"
+    page.width = 400
+    page.height = 600
+    page.resizeable = False
 
-main_window.mainloop()
+
+
+
+ft.run(main)s

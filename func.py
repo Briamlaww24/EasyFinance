@@ -70,4 +70,12 @@ def login_interfaz(user, passwd):
         lectura = f.read()
     if Sesion in lectura :
         print("Bienvenido al systema")
+
+def registro_interfaz(user, passwd):
+
+    Usuario = user.get()
+    Contraseña = passwd.get()
+    registro = (f"{Usuario},{Contraseña}")
+    with open("base_de_datos.txt", "a", encoding="utf-8") as f:
+        f.write(registro+"\n")
     

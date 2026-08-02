@@ -1,5 +1,6 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+import func as fc
 
 Main_window = tk.Tk()
 Main_window.title("EasyFinance")
@@ -101,7 +102,8 @@ Boton_ingresar = tk.Button(
     text="Ingresar",
     font=("Serif", 15, "bold"),
     bg="#DCDCDC",
-    fg="Black"
+    fg="Black",
+    command=lambda: fc.login_interfaz(Ingreso__sesion, Ingreso__passwd)
 )
 Boton_ingresar.place(y=380, x=180)
 

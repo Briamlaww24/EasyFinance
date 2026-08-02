@@ -4,6 +4,7 @@ import questionary
 import random
 import os
 import time
+import tkinter as tk
 
 def main_login():
     while True: 
@@ -59,3 +60,14 @@ def formatear_excel(Usuario_actual):
         celda.alignment = Alignment(horizontal="center")
 
     Excel.save(f"Reporte-EasyFinance-{Usuario_actual}.xlsx")
+
+def login_interfaz(user, passwd):
+
+    Usuario = user.get()
+    Contraseña = passwd.get()
+    Sesion = (f"{Usuario},{Contraseña}")
+    with open("base_de_datos.txt", "r") as f:
+        lectura = f.read()
+    if Sesion in lectura :
+        print("Bienvenido al systema")
+    

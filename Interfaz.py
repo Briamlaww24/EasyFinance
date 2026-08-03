@@ -339,7 +339,14 @@ def Mostrar_ventana_principal(Usuario_actual):
         height=100
     )
     frame_utilidad.place(x=750, y=30)
-    
+
+    frame_registrar_operacion = tk.Frame(
+        Main_window,
+        bg="#8FBC8F",
+        width=700,
+        height=600
+    )
+    frame_registrar_operacion.place(x=750, y=150)
 
 
 Mostrar_ventana_login()

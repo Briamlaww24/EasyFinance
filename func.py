@@ -5,6 +5,8 @@ import random
 import os
 import time
 import tkinter as tk
+from tkinter import messagebox
+from datetime import datetime
 
 def main_login():
     while True: 
@@ -70,6 +72,12 @@ def login_interfaz(user, passwd):
         lectura = f.read()
     if Sesion in lectura :
         print("Bienvenido al systema")
+        from Interfaz import Mostrar_ventana_principal
+        Mostrar_ventana_principal()
+    else: 
+        print("Error")
+        tk.messagebox.showerror("Error", "Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.")
+
 
 def registro_interfaz(user, passwd):
 
@@ -78,4 +86,27 @@ def registro_interfaz(user, passwd):
     registro = (f"{Usuario},{Contraseña}")
     with open("base_de_datos.txt", "a", encoding="utf-8") as f:
         f.write(registro+"\n")
-    
+
+def Obtener_fecha_actual():
+    meses = {
+        1: "Enero",
+        2: "Febrero",
+        3: "Marzo",
+        4: "Abril",
+        5: "Mayo",
+        6: "Junio",
+        7: "Julio",
+        8: "Agosto",
+        9: "Septiembre",
+        10: "Octubre",
+        11: "Noviembre",
+        12: "Diciembre"
+    }
+
+    fecha_actual = datetime.now()
+    dia = fecha_actual.day
+    mes = meses[fecha_actual.month]
+    anio = fecha_actual.year
+
+    formateo_fecha = f"{dia} de {mes} de {anio}"
+    return formateo_fecha

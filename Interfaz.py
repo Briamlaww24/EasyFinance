@@ -1,6 +1,33 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+from tkinter import messagebox
 import func as fc
+
+##############################################################################
+##############################################################################
+
+def login_interfaz(user, passwd):
+
+    Usuario = user.get()
+    Contraseña = passwd.get()
+    Sesion = (f"{Usuario},{Contraseña}")
+
+    Usuario_formateado = ""
+    Letra1 = Usuario[0].upper()
+    Resto = Usuario[1:]
+    Usuario_formateado = Letra1 + Resto
+
+    with open("base_de_datos.txt", "r") as f:
+        lectura = f.read()
+    if Sesion in lectura :
+        print("Bienvenido al systema")
+        Mostrar_ventana_principal(Usuario_formateado)
+    else: 
+        print("Error")
+        tk.messagebox.showerror("Error", "Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.")
+
+################################################################################
+################################################################################
 
 Main_window = tk.Tk()
 Main_window.title("EasyFinance")
@@ -46,7 +73,7 @@ def Mostrar_ventana_login():
 
     Frame_botones = tk.Frame(
         Main_window,
-        bg="",
+        bg="#8FBC8F",
         width=500,
         height=800
     )
@@ -84,7 +111,6 @@ def Mostrar_ventana_login():
     )
     Ingreso__sesion.place(y=240, x=15)
 
-
     Texto_Sesion = tk.Label(
         Frame_botones,
         text="Ingrese su contraseña:",
@@ -104,13 +130,14 @@ def Mostrar_ventana_login():
     )
     Ingreso__passwd.place(y=320, x=15)
 
+
     Boton_ingresar = tk.Button(
         Frame_botones,
         text="Ingresar",
         font=("Serif", 15, "bold"),
         bg="#DCDCDC",
         fg="Black",
-        command=lambda: fc.login_interfaz(Ingreso__sesion, Ingreso__passwd)
+        command=lambda:login_interfaz(Ingreso__sesion, Ingreso__passwd)
     )
     Boton_ingresar.place(y=380, x=180)
 
@@ -268,6 +295,51 @@ def Mostrar_ventana_registro():
         command=Mostrar_ventana_login
     )
     No_tiene_cuenta.place(y=750, x=90)
+
+def Mostrar_ventana_principal(Usuario_actual):
+    for widget in Main_window.winfo_children():
+        widget.destroy()
+
+    fecha_actual = fc.Obtener_fecha_actual()
+
+    Main_window.configure(bg="#FFFFFF")
+
+    frame_menu = tk.Frame(
+        Main_window,
+        bg="#8FBC8F",
+        width=100,
+        height=800,
+    )
+    frame_menu.pack(
+        fill="both", 
+        expand=False,
+        side="left"
+    )
+
+    tk.Label(
+        Main_window,
+        text=f"¡Bienvenido a EasyFinance!, {Usuario_actual}",
+        bg="#FFFFFF",
+        fg="#000000",
+        font=("Serif", 20, "bold")
+    ).place(x=135, y=15)
+
+    tk.Label(
+        Main_window,
+        text=f"Asi va tu tienda hoy, {fecha_actual}",
+        bg="#FFFFFF",
+        fg="#808080",
+        font=("Serif", 15, "bold")
+    ).place(x=135, y=60)
+
+    frame_utilidad = tk.Frame(
+        Main_window,
+        bg="#8FBC8F",
+        width=700,
+        height=100
+    )
+    frame_utilidad.place(x=750, y=30)
+    
 
 
 Mostrar_ventana_login()

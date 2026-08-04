@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from PIL import Image, ImageTk
 from tkinter import messagebox
@@ -6,7 +7,7 @@ import func as fc
 ##############################################################################
 ##############################################################################
 
-def login_interfaz(user, passwd):
+def login_interfaz(user, passwd, recuerdame):
 
     Usuario = user.get()
     Contraseña = passwd.get()
@@ -17,12 +18,21 @@ def login_interfaz(user, passwd):
     Resto = Usuario[1:]
     Usuario_formateado = Letra1 + Resto
 
-    with open("base_de_datos.txt", "r") as f:
+    with open("base_de_datos.txt", "r", encoding="utf-8") as f:
         lectura = f.read()
+
     if Sesion in lectura :
         print("Bienvenido al systema")
         Mostrar_ventana_principal(Usuario_formateado)
-    else: 
+
+        if recuerdame.get():
+            with open("recuerdame.txt", "w", encoding="utf-8") as f:
+                f.write(Sesion)
+        else:
+            with open("recuerdame.txt", "w", encoding="utf-8") as f:
+                f.write("")
+
+    else:
         print("Error")
         tk.messagebox.showerror("Error", "Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.")
 
@@ -35,7 +45,23 @@ Main_window.geometry("1500x800")
 Main_window.resizable(False, False)
 Main_window.configure(bg="#8FBC8F")
 
+recuerdame = tk.BooleanVar(value=False)
+
 def Mostrar_ventana_login():
+
+    if os.path.exists("recuerdame.txt"):
+        with open("recuerdame.txt", "r", encoding="utf-8") as f:
+            usuario_guardado = f.read().strip()
+
+        if usuario_guardado:
+            with open("base_de_datos.txt", "r", encoding="utf-8") as f:
+                lectura = f.read()
+
+            if usuario_guardado in lectura:
+                usuario_sesion = usuario_guardado.split(",")[0]
+                usuario_sesion = usuario_sesion[:1].upper() + usuario_sesion[1:]
+                Mostrar_ventana_principal(usuario_sesion)
+                return
 
     for widget in Main_window.winfo_children():
         widget.destroy()
@@ -130,6 +156,25 @@ def Mostrar_ventana_login():
     )
     Ingreso__passwd.place(y=320, x=15)
 
+    
+
+    tk.Checkbutton(
+        Frame_botones,
+        variable=recuerdame,
+        text="Recuerdame",
+        font=("Serif", 12, "bold"),
+        onvalue=1,
+        offvalue=0,
+        bg="#8FBC8F",
+        fg="Black",
+        relief="flat",
+        borderwidth=0,
+        highlightbackground="#8FBC8F",
+        highlightthickness=0
+        
+    ).place(y=360, x=15)
+
+  
 
     Boton_ingresar = tk.Button(
         Frame_botones,
@@ -137,7 +182,7 @@ def Mostrar_ventana_login():
         font=("Serif", 15, "bold"),
         bg="#DCDCDC",
         fg="Black",
-        command=lambda:login_interfaz(Ingreso__sesion, Ingreso__passwd)
+        command=lambda:login_interfaz(Ingreso__sesion, Ingreso__passwd, recuerdame)
     )
     Boton_ingresar.place(y=380, x=180)
 

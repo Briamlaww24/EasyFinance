@@ -348,6 +348,40 @@ def Mostrar_ventana_principal(Usuario_actual):
     )
     frame_registrar_operacion.place(x=750, y=150)
 
+    frame_tipo_operacion = tk.Frame(
+        frame_registrar_operacion,
+        bg="#F0F8FF",
+        width=700,
+        height=100
+    )
+    frame_tipo_operacion.place(x=750, y=770)
+
+    registrar_ingreso = tk.Button(
+        frame_tipo_operacion,
+        text="Registrar Ingreso",
+        font=("Serif", 15, "bold"),
+        bg="#DCDCDC",
+        fg="Black"
+    )
+    registrar_ingreso.place(x=10, y=10)
+
+    registrar_egreso = tk.Button(
+        frame_tipo_operacion,
+        text="Registrar Egreso",
+        font=("Serif", 15, "bold"),
+        bg="#DCDCDC",
+        fg="Black"
+    )
+    registrar_egreso.place(x=10, y=60)
+
+    registrar_envio = tk.Button(
+        frame_tipo_operacion,
+        text="Registrar Envío",
+        font=("Serif", 15, "bold"),
+        bg="#DCDCDC",
+        fg="Black"
+    )
+    registrar_envio.place(x=10, y=110)
 
 Mostrar_ventana_login()
 Main_window.mainloop()

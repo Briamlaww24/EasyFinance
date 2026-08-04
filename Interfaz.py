@@ -91,7 +91,7 @@ def Mostrar_ventana_login():
     Bienvenido = tk.Label(
         frame_login,
         text=" Bienvenido a EasyFinance ",
-        font=("Serif", 30, "bold"),
+        font=("Georgia", 30, "bold"),
         bg="Black",
         fg="White"
     ).place(x=250, y=20)
@@ -124,7 +124,7 @@ def Mostrar_ventana_login():
         text="Ingrese su nombre de usuario:",
         font=("Serif", 15, "bold"),
         bg="#8FBC8F",
-        fg="Black"
+        fg="#2E322E"
     )
     Texto_Sesion.place(y=200, x=15)
 
@@ -133,7 +133,7 @@ def Mostrar_ventana_login():
         width=40,
         font=("Serif", 15, "bold"),
         bg="#DCDCDC",
-        fg="Black"
+        fg="#2E322E"
     )
     Ingreso__sesion.place(y=240, x=15)
 
@@ -142,7 +142,7 @@ def Mostrar_ventana_login():
         text="Ingrese su contraseña:",
         font=("Serif", 15, "bold"),
         bg="#8FBC8F",
-        fg="Black"
+        fg="#2E322E"
     )
     Texto_Sesion.place(y=280, x=15)
 
@@ -152,7 +152,7 @@ def Mostrar_ventana_login():
         width=40,
         font=("Serif", 15, "bold"),
         bg="#DCDCDC",
-        fg="Black"
+        fg="#2E322E"
     )
     Ingreso__passwd.place(y=320, x=15)
 
@@ -166,7 +166,7 @@ def Mostrar_ventana_login():
         onvalue=1,
         offvalue=0,
         bg="#8FBC8F",
-        fg="Black",
+        fg="#2E322E",
         relief="flat",
         borderwidth=0,
         highlightbackground="#8FBC8F",
@@ -181,7 +181,7 @@ def Mostrar_ventana_login():
         text="Ingresar",
         font=("Serif", 15, "bold"),
         bg="#DCDCDC",
-        fg="Black",
+        fg="#2E322E",
         command=lambda:login_interfaz(Ingreso__sesion, Ingreso__passwd, recuerdame)
     )
     Boton_ingresar.place(y=380, x=180)
@@ -203,7 +203,7 @@ def Mostrar_ventana_login():
         text="  ¿No tiene cuenta?. Regístrese aquí  ",
         font=("Serif", 12, "bold"),
         bg="#8FBC8F",
-        fg="Black",
+        fg="#2E322E",
         highlightthickness=1,
         highlightbackground="#F0F8FF",
         command=Mostrar_ventana_registro
@@ -249,7 +249,7 @@ def Mostrar_ventana_registro():
 
     Frame_botones = tk.Frame(
         Main_window,
-        bg="",
+        bg="#8FBC8F",
         width=500,
         height=800
     )
@@ -283,7 +283,7 @@ def Mostrar_ventana_registro():
         width=40,
         font=("Serif", 15, "bold"),
         bg="#DCDCDC",
-        fg="Black"
+        fg="#2E322E"
     )
     Ingreso__sesion.place(y=240, x=15)
 
@@ -293,7 +293,7 @@ def Mostrar_ventana_registro():
         text="Cree una contraseña segura:",
         font=("Serif", 15, "bold"),
         bg="#8FBC8F",
-        fg="Black"
+        fg="#2E322E"
     )
     Texto_Sesion.place(y=280, x=15)
 
@@ -303,7 +303,7 @@ def Mostrar_ventana_registro():
         width=40,
         font=("Serif", 15, "bold"),
         bg="#DCDCDC",
-        fg="Black"
+        fg="#2E322E"
     )
     Ingreso__passwd.place(y=320, x=15)
 
@@ -312,7 +312,7 @@ def Mostrar_ventana_registro():
         text="Registrarme",
         font=("Serif", 15, "bold"),
         bg="#DCDCDC",
-        fg="Black",
+        fg="#2E322E",
         command=lambda: fc.registro_interfaz(Ingreso__sesion, Ingreso__passwd)
     )
     Boton_ingresar.place(y=380, x=170)
@@ -334,7 +334,7 @@ def Mostrar_ventana_registro():
         text="  ¿Ya tiene cuenta?. Inicie sesión aquí  ",
         font=("Serif", 12, "bold"),
         bg="#8FBC8F",
-        fg="Black",
+        fg="#2E322E",
         highlightthickness=1,
         highlightbackground="#F0F8FF",
         command=Mostrar_ventana_login
@@ -365,7 +365,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         Main_window,
         text=f"¡Bienvenido a EasyFinance!, {Usuario_actual}",
         bg="#FFFFFF",
-        fg="#000000",
+        fg="#2E322E",
         font=("Serif", 20, "bold")
     ).place(x=135, y=15)
 
@@ -393,20 +393,30 @@ def Mostrar_ventana_principal(Usuario_actual):
     )
     frame_registrar_operacion.place(x=750, y=150)
 
+    tk.Label(
+        frame_registrar_operacion,
+        text="Llene los campos para registrar una operación:",
+        font=("Serif", 15, "bold"),
+        bg="#8FBC8F",
+        fg="#2E322E"
+    ).place(x=10, y=7)
+
     frame_tipo_operacion = tk.Frame(
         frame_registrar_operacion,
-        bg="#F0F8FF",
-        width=700,
-        height=100
+        bg="#F0FFF0",
+        width=614,
+        height=60
     )
-    frame_tipo_operacion.place(x=750, y=770)
+    frame_tipo_operacion.place(x=39, y=60)
 
     registrar_ingreso = tk.Button(
         frame_tipo_operacion,
         text="Registrar Ingreso",
         font=("Serif", 15, "bold"),
         bg="#DCDCDC",
-        fg="Black"
+        fg="Black",
+        activebackground="#006400",
+        relief="flat",
     )
     registrar_ingreso.place(x=10, y=10)
 
@@ -415,18 +425,76 @@ def Mostrar_ventana_principal(Usuario_actual):
         text="Registrar Egreso",
         font=("Serif", 15, "bold"),
         bg="#DCDCDC",
-        fg="Black"
+        fg="Black",
+        activebackground="#006400",
+        relief="flat",
     )
-    registrar_egreso.place(x=10, y=60)
+    registrar_egreso.place(x=220, y=10)
 
     registrar_envio = tk.Button(
         frame_tipo_operacion,
         text="Registrar Envío",
         font=("Serif", 15, "bold"),
         bg="#DCDCDC",
-        fg="Black"
+        fg="#2E322E",
+        activebackground="#006400",
+        relief="flat",
     )
-    registrar_envio.place(x=10, y=110)
+    registrar_envio.place(x=420, y=10)
+
+    tk.Label(
+        frame_registrar_operacion,
+        text="Pequeña Descripción: ",
+        font=("Serif", 15, "bold"),
+        bg="#8FBC8F",
+        fg="#2E322E"
+    ).place(x=39, y=140)
+
+    Descripcion = tk.Entry(
+        frame_registrar_operacion,
+        width=55,
+        font=("Serif", 15, "bold"),
+        bg="#F0FFF0",
+        fg="#2E322E",
+        relief="solid"
+    )
+    Descripcion.place(x=39, y=180)
+
+    tk.Label(
+        frame_registrar_operacion,
+        text="Monto: ",
+        font=("Serif", 15, "bold"),
+        bg="#8FBC8F",
+        fg="#2E322E"
+    ).place(x=39, y=230)
+
+    Monto = tk.Entry(
+        frame_registrar_operacion,
+        width=15,
+        font=("Serif", 15, "bold"),
+        bg="#F0FFF0",
+        fg="#2E322E",
+        relief="solid"
+    )
+    Monto.place(x=39, y=270)
+
+    tk.Label(
+        frame_registrar_operacion,
+        text="Cantidad: ",
+        font=("Serif", 15, "bold"),
+        bg="#8FBC8F",
+        fg="#2E322E"
+    ).place(x=480, y=230)
+
+    Cantidad = tk.Entry(
+        frame_registrar_operacion,
+        width=15,
+        font=("Serif", 15, "bold"),
+        bg="#F0FFF0",
+        fg="#2E322E",
+        relief="solid"
+    )
+    Cantidad.place(x=480, y=270)
 
 Mostrar_ventana_login()
 Main_window.mainloop()

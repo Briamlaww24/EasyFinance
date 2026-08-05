@@ -223,11 +223,11 @@ def Mostrar_ventana_login():
     )
     No_tiene_cuenta.place(y=750, x=100)
 
+Utilidad = 0
 
 def Mostrar_ventana_registro():
     for widget in Main_window.winfo_children():
-            widget.destroy()
-        
+            widget.destroy()   
     
     frame_login = tk.Frame(
         Main_window,
@@ -347,11 +347,11 @@ def Mostrar_ventana_registro():
     )
     No_tiene_cuenta.place(y=750, x=90)
 
-tipo_operacion = None
-
 def Mostrar_ventana_principal(Usuario_actual):
     for widget in Main_window.winfo_children():
         widget.destroy()
+
+    User = Usuario_actual
 
     fecha_actual = fc.Obtener_fecha_actual()
 
@@ -425,6 +425,8 @@ def Mostrar_ventana_principal(Usuario_actual):
     )
     frame_tipo_operacion.place(x=39, y=60)
 
+    tipo_operacion = tk.StringVar()
+
     registrar_ingreso = tk.Button(
         frame_tipo_operacion,
         text="Registrar Ingreso",
@@ -435,7 +437,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         relief="flat",
         highlightthickness=2,
         highlightbackground="#2E322E",
-        command=lambda: tipo_operacion = "hola",
+        command=lambda: tipo_operacion.set("+(Ingreso)"),
     )
     registrar_ingreso.place(x=10, y=10)
 
@@ -448,7 +450,8 @@ def Mostrar_ventana_principal(Usuario_actual):
         activebackground="#3FA66B",
         relief="flat",
         highlightthickness=2,
-        highlightbackground="#2E322E"
+        highlightbackground="#2E322E",
+        command=lambda: tipo_operacion.set("-(Egreso)")
     )
     registrar_egreso.place(x=220, y=10)
 
@@ -461,7 +464,8 @@ def Mostrar_ventana_principal(Usuario_actual):
         activebackground="#3FA66B",
         relief="flat",
         highlightthickness=2,
-        highlightbackground="#2E322E"
+        highlightbackground="#2E322E",
+        command=lambda: tipo_operacion.set("-(Envio)")
     )
     registrar_envio.place(x=420, y=10)
 
@@ -551,7 +555,8 @@ def Mostrar_ventana_principal(Usuario_actual):
         activebackground="#C0503B",
         relief="flat",
         highlightthickness=2,
-        highlightbackground="#2E322E"
+        highlightbackground="#2E322E",
+        command=lambda: fc.registrar_operacion_interfaz(fecha_actual, tipo_operacion, Descripcion, Monto, Cantidad, User, Utilidad)
     )
     Registrar_todo.place(x=39, y=535)
 

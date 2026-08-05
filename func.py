@@ -7,6 +7,7 @@ import time
 import tkinter as tk
 from tkinter import messagebox
 from datetime import datetime
+from pandas import DataFrame, read_excel, concat
 
 def main_login():
     while True: 
@@ -112,3 +113,42 @@ def Obtener_fecha_actual():
 
     formateo_fecha = f"{dia} de {mes} de {anio}"
     return formateo_fecha
+
+def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cantidad, Usuario_actual, utililidad):
+
+    datos_nuevos = {
+    'Fecha': [],
+    'Producto': [],
+    'Precio': [],
+    'Cantidad': [],
+    'Tipo': []
+    }
+
+    datos_nuevos["Fecha"] = fecha
+
+    producto = descripcion.get()
+    datos_nuevos['Producto'] = producto
+
+    precio = monto.get()
+    datos_nuevos['Precio'] = precio
+
+    cantidad_de_productos = cantidad.get()
+    datos_nuevos['Cantidad'] = cantidad_de_productos
+
+    tipo = tipo_operacion.get()
+    datos_nuevos['Tipo'] = tipo
+
+    utililidad += (float(precio) * int(cantidad_de_productos))
+
+    try:
+        df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
+
+    except FileNotFoundError:
+        df = DataFrame(columns=["Fecha", "Producto", "Precio", "Cantidad", "Tipo"])
+
+    df = concat([df, DataFrame([datos_nuevos])], ignore_index=True)
+    df.to_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", index=False, sheet_name="Datos")
+
+    formatear_excel(Usuario_actual)
+
+    return utililidad

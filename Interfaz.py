@@ -69,7 +69,7 @@ def Mostrar_ventana_login():
 
     frame_login = tk.Frame(
         Main_window,
-        bg="#FAF0E6",
+        bg="#F7F4EC",
         width=1000,
         height=800,
     )
@@ -132,7 +132,7 @@ def Mostrar_ventana_login():
         Frame_botones,
         width=40,
         font=("Serif", 15, "bold"),
-        bg="#DCDCDC",
+        bg="#F7F4EC",
         fg="#2E322E"
     )
     Ingreso__sesion.place(y=240, x=15)
@@ -151,7 +151,7 @@ def Mostrar_ventana_login():
         show="#",
         width=40,
         font=("Serif", 15, "bold"),
-        bg="#DCDCDC",
+        bg="#F7F4EC",
         fg="#2E322E"
     )
     Ingreso__passwd.place(y=320, x=15)
@@ -180,7 +180,7 @@ def Mostrar_ventana_login():
         Frame_botones,
         text="Ingresar",
         font=("Serif", 15, "bold"),
-        bg="#DCDCDC",
+        bg="#F7F4EC",
         fg="#2E322E",
         command=lambda:login_interfaz(Ingreso__sesion, Ingreso__passwd, recuerdame)
     )
@@ -205,7 +205,7 @@ def Mostrar_ventana_login():
         bg="#8FBC8F",
         fg="#2E322E",
         highlightthickness=1,
-        highlightbackground="#F0F8FF",
+        highlightbackground="#F7F4EC",
         command=Mostrar_ventana_registro
 
     )
@@ -219,7 +219,7 @@ def Mostrar_ventana_registro():
     
     frame_login = tk.Frame(
         Main_window,
-        bg="#FAF0E6",
+        bg="#F7F4EC",
         width=1000,
         height=800,
     )
@@ -282,7 +282,7 @@ def Mostrar_ventana_registro():
         Frame_botones,
         width=40,
         font=("Serif", 15, "bold"),
-        bg="#DCDCDC",
+        bg="#F7F4EC",
         fg="#2E322E"
     )
     Ingreso__sesion.place(y=240, x=15)
@@ -302,7 +302,7 @@ def Mostrar_ventana_registro():
         show="#",
         width=40,
         font=("Serif", 15, "bold"),
-        bg="#DCDCDC",
+        bg="#F7F4EC",
         fg="#2E322E"
     )
     Ingreso__passwd.place(y=320, x=15)
@@ -311,7 +311,7 @@ def Mostrar_ventana_registro():
         Frame_botones,
         text="Registrarme",
         font=("Serif", 15, "bold"),
-        bg="#DCDCDC",
+        bg="#F7F4EC",
         fg="#2E322E",
         command=lambda: fc.registro_interfaz(Ingreso__sesion, Ingreso__passwd)
     )
@@ -336,7 +336,7 @@ def Mostrar_ventana_registro():
         bg="#8FBC8F",
         fg="#2E322E",
         highlightthickness=1,
-        highlightbackground="#F0F8FF",
+        highlightbackground="#F7F4EC",
         command=Mostrar_ventana_login
     )
     No_tiene_cuenta.place(y=750, x=90)
@@ -347,7 +347,7 @@ def Mostrar_ventana_principal(Usuario_actual):
 
     fecha_actual = fc.Obtener_fecha_actual()
 
-    Main_window.configure(bg="#FFFFFF")
+    Main_window.configure(bg="#F7F4EC")
 
     frame_menu = tk.Frame(
         Main_window,
@@ -364,7 +364,7 @@ def Mostrar_ventana_principal(Usuario_actual):
     tk.Label(
         Main_window,
         text=f"¡Bienvenido a EasyFinance!, {Usuario_actual}",
-        bg="#FFFFFF",
+        bg="#F7F4EC",
         fg="#2E322E",
         font=("Serif", 20, "bold")
     ).place(x=135, y=15)
@@ -372,7 +372,7 @@ def Mostrar_ventana_principal(Usuario_actual):
     tk.Label(
         Main_window,
         text=f"Asi va tu tienda hoy, {fecha_actual}",
-        bg="#FFFFFF",
+        bg="#F7F4EC",
         fg="#808080",
         font=("Serif", 15, "bold")
     ).place(x=135, y=60)
@@ -403,7 +403,7 @@ def Mostrar_ventana_principal(Usuario_actual):
 
     frame_tipo_operacion = tk.Frame(
         frame_registrar_operacion,
-        bg="#F0FFF0",
+        bg="#F7F4EC",
         width=614,
         height=60
     )
@@ -413,7 +413,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         frame_tipo_operacion,
         text="Registrar Ingreso",
         font=("Serif", 15, "bold"),
-        bg="#DCDCDC",
+        bg="#F7F4EC",
         fg="Black",
         activebackground="#006400",
         relief="flat",
@@ -424,7 +424,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         frame_tipo_operacion,
         text="Registrar Egreso",
         font=("Serif", 15, "bold"),
-        bg="#DCDCDC",
+        bg="#F7F4EC",
         fg="Black",
         activebackground="#006400",
         relief="flat",
@@ -435,7 +435,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         frame_tipo_operacion,
         text="Registrar Envío",
         font=("Serif", 15, "bold"),
-        bg="#DCDCDC",
+        bg="#F7F4EC",
         fg="#2E322E",
         activebackground="#006400",
         relief="flat",
@@ -454,7 +454,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         frame_registrar_operacion,
         width=55,
         font=("Serif", 15, "bold"),
-        bg="#F0FFF0",
+        bg="#F7F4EC",
         fg="#2E322E",
         relief="solid"
     )
@@ -472,7 +472,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         frame_registrar_operacion,
         width=15,
         font=("Serif", 15, "bold"),
-        bg="#F0FFF0",
+        bg="#F7F4EC",
         fg="#2E322E",
         relief="solid"
     )
@@ -490,7 +490,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         frame_registrar_operacion,
         width=15,
         font=("Serif", 15, "bold"),
-        bg="#F0FFF0",
+        bg="#F7F4EC",
         fg="#2E322E",
         relief="solid"
     )

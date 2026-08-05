@@ -138,17 +138,30 @@ def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cant
     tipo = tipo_operacion.get()
     datos_nuevos['Tipo'] = tipo
 
-    utililidad += (float(precio) * int(cantidad_de_productos))
+    if producto == "" or precio == "" or cantidad_de_productos == "" or tipo == "" :
+        tk.messagebox.showerror("Error", "Ninguno de los campos debe estar vacio para poder registrar una operación")
 
-    try:
-        df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
+    else:
 
-    except FileNotFoundError:
-        df = DataFrame(columns=["Fecha", "Producto", "Precio", "Cantidad", "Tipo"])
+        utililidad += (float(precio) * int(cantidad_de_productos))
 
-    df = concat([df, DataFrame([datos_nuevos])], ignore_index=True)
-    df.to_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", index=False, sheet_name="Datos")
+        try:
+            df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
 
-    formatear_excel(Usuario_actual)
+        except FileNotFoundError:
+            df = DataFrame(columns=["Fecha", "Producto", "Precio", "Cantidad", "Tipo"])
+
+        df = concat([df, DataFrame([datos_nuevos])], ignore_index=True)
+        df.to_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", index=False, sheet_name="Datos")
+
+        formatear_excel(Usuario_actual)
+
+    limpiar_widgets(descripcion)
+    limpiar_widgets(monto)
+    limpiar_widgets(cantidad)
+    tipo_operacion.set("")
 
     return utililidad
+
+def limpiar_widgets(widget):
+    widget.delete(0, "end")

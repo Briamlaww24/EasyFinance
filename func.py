@@ -87,6 +87,8 @@ def registro_interfaz(user, passwd):
     with open("base_de_datos.txt", "a", encoding="utf-8") as f:
         f.write(registro+"\n")
 
+    tk.messagebox.showinfo("Operacion Completada", "Su cuenta ha sido registrada correctamente. Continue a iniciar sesión.")
+
 def Obtener_fecha_actual():
     meses = {
         1: "Enero",

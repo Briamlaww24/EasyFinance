@@ -185,7 +185,7 @@ def Mostrar_ventana_login():
     Boton_ingresar.place(y=380, x=180)
 
     Logo = Image.open("imagenes/logo.png")
-    Logo = Logo.resize((400, 200))
+    Logo = Logo.resize((400, 188))
     Final_Logo = ImageTk.PhotoImage(Logo)
 
     Label_logo = tk.Label(
@@ -195,6 +195,18 @@ def Mostrar_ventana_login():
     )
     Label_logo.image = Final_Logo
     Label_logo.place(y=440, x=50)
+
+    Logo2 = Image.open("imagenes/logo.png")
+    Logo2 = Logo.resize((200, 94))
+    Final_Logo2 = ImageTk.PhotoImage(Logo2)
+
+    Label_logo2 = tk.Label(
+        frame_login,
+        image=Final_Logo2,
+        bg="#92b89e"
+    )
+    Label_logo2.image =Final_Logo2
+    Label_logo2.place(x=2, y=2)
 
     No_tiene_cuenta = tk.Button(
         Frame_botones,
@@ -335,11 +347,21 @@ def Mostrar_ventana_registro():
     )
     No_tiene_cuenta.place(y=750, x=90)
 
+tipo_operacion = None
+
 def Mostrar_ventana_principal(Usuario_actual):
     for widget in Main_window.winfo_children():
         widget.destroy()
 
     fecha_actual = fc.Obtener_fecha_actual()
+
+    imagen = Image.open("imagenes/_.png")
+    imagen = imagen.resize((1500,800))
+    imagen_fondo = ImageTk.PhotoImage(imagen)
+
+    label_imagen = tk.Label(Main_window, image=imagen_fondo)
+    label_imagen.image = imagen_fondo
+    label_imagen.place(x=0, y=0)
 
     Main_window.configure(bg="#F7F4EC")
 
@@ -367,7 +389,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         Main_window,
         text=f"Asi va tu tienda hoy, {fecha_actual}",
         bg="#F7F4EC",
-        fg="#808080",
+        fg="#8A8F87",
         font=("Serif", 15, "bold")
     ).place(x=135, y=60)
 
@@ -407,10 +429,13 @@ def Mostrar_ventana_principal(Usuario_actual):
         frame_tipo_operacion,
         text="Registrar Ingreso",
         font=("Serif", 15, "bold"),
-        bg="#F7F4EC",
+        bg="#1D7A6E",
         fg="Black",
-        activebackground="#006400",
+        activebackground="#3FA66B",
         relief="flat",
+        highlightthickness=2,
+        highlightbackground="#2E322E",
+        command=lambda: tipo_operacion = "hola",
     )
     registrar_ingreso.place(x=10, y=10)
 
@@ -418,10 +443,12 @@ def Mostrar_ventana_principal(Usuario_actual):
         frame_tipo_operacion,
         text="Registrar Egreso",
         font=("Serif", 15, "bold"),
-        bg="#F7F4EC",
+        bg="#1D7A6E",
         fg="Black",
-        activebackground="#006400",
+        activebackground="#3FA66B",
         relief="flat",
+        highlightthickness=2,
+        highlightbackground="#2E322E"
     )
     registrar_egreso.place(x=220, y=10)
 
@@ -429,10 +456,12 @@ def Mostrar_ventana_principal(Usuario_actual):
         frame_tipo_operacion,
         text="Registrar Envío",
         font=("Serif", 15, "bold"),
-        bg="#F7F4EC",
-        fg="#2E322E",
-        activebackground="#006400",
+        bg="#1D7A6E",
+        fg="Black",
+        activebackground="#3FA66B",
         relief="flat",
+        highlightthickness=2,
+        highlightbackground="#2E322E"
     )
     registrar_envio.place(x=420, y=10)
 
@@ -450,7 +479,9 @@ def Mostrar_ventana_principal(Usuario_actual):
         font=("Serif", 15, "bold"),
         bg="#F7F4EC",
         fg="#2E322E",
-        relief="solid"
+        relief="solid",
+        highlightcolor="#0e7c66",
+        highlightthickness=2,
     )
     Descripcion.place(x=39, y=180)
 
@@ -468,7 +499,9 @@ def Mostrar_ventana_principal(Usuario_actual):
         font=("Serif", 15, "bold"),
         bg="#F7F4EC",
         fg="#2E322E",
-        relief="solid"
+        relief="solid",
+        highlightcolor="#0e7c66",
+        highlightthickness=2
     )
     Monto.place(x=39, y=270)
 
@@ -486,9 +519,41 @@ def Mostrar_ventana_principal(Usuario_actual):
         font=("Serif", 15, "bold"),
         bg="#F7F4EC",
         fg="#2E322E",
-        relief="solid"
+        relief="solid",
+        highlightcolor="#0e7c66",
+        highlightthickness=2
     )
     Cantidad.place(x=480, y=270)
+
+    tk.Label(
+        frame_registrar_operacion,
+        text="______________________________________________________________________",
+        font=("Serif", 15, "bold"),
+        bg="#8FBC8F",
+        fg="#2E322E"
+    ).place(x=30, y=330)
+
+    tk.Label(
+        frame_registrar_operacion,
+        text=f"Nota: La operacion se registrara con la fecha actual. \n ({fecha_actual})",
+        font=("Serif", 15, "bold"),
+        bg="#8FBC8F",
+        fg="#2E322E",
+    ).place(x=90, y="377")
+
+    Registrar_todo = tk.Button(
+        frame_registrar_operacion,
+        text="REGISTRAR",
+        font=("Serif", 15, "bold"),
+        width=54,
+        bg="#00FF7F",
+        fg="Black",
+        activebackground="#C0503B",
+        relief="flat",
+        highlightthickness=2,
+        highlightbackground="#2E322E"
+    )
+    Registrar_todo.place(x=39, y=535)
 
 Mostrar_ventana_login()
 Main_window.mainloop()

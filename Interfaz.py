@@ -72,6 +72,8 @@ def Mostrar_ventana_login():
         bg="#F7F4EC",
         width=1000,
         height=800,
+        borderwidth=0,
+        highlightthickness=0
     )
     frame_login.pack(
 
@@ -80,7 +82,7 @@ def Mostrar_ventana_login():
         side="left"
     )
 
-    imagen = Image.open("imagenes/imagen_login.jpg")
+    imagen = Image.open("imagenes/login_ilustracion.png")
     imagen = imagen.resize((1000,800))
     imagen_login = ImageTk.PhotoImage(imagen)
 
@@ -88,20 +90,13 @@ def Mostrar_ventana_login():
     label_imagen.image = imagen_login
     label_imagen.pack(pady=0)
 
-    Bienvenido = tk.Label(
-        frame_login,
-        text=" Bienvenido a EasyFinance ",
-        font=("Georgia", 30, "bold"),
-        bg="Black",
-        fg="White"
-    ).place(x=250, y=20)
-
-
     Frame_botones = tk.Frame(
         Main_window,
-        bg="#8FBC8F",
+        bg="#80ac8e",
         width=500,
-        height=800
+        height=800,
+        borderwidth=0,
+        highlightthickness=0
     )
     Frame_botones.pack(
         fill="both",
@@ -113,7 +108,7 @@ def Mostrar_ventana_login():
         Frame_botones,
         text="Inicio de Sesión",
         font=("Serif", 23, "bold"),
-        bg="#8FBC8F",
+        bg="#80ac8e",
         fg="White"
     )
     Inicio_sesion.pack(pady=50, padx=127)
@@ -123,7 +118,7 @@ def Mostrar_ventana_login():
         Frame_botones,
         text="Ingrese su nombre de usuario:",
         font=("Serif", 15, "bold"),
-        bg="#8FBC8F",
+        bg="#80ac8e",
         fg="#2E322E"
     )
     Texto_Sesion.place(y=200, x=15)
@@ -133,7 +128,8 @@ def Mostrar_ventana_login():
         width=40,
         font=("Serif", 15, "bold"),
         bg="#F7F4EC",
-        fg="#2E322E"
+        fg="#2E322E",
+        relief="solid"
     )
     Ingreso__sesion.place(y=240, x=15)
 
@@ -141,8 +137,8 @@ def Mostrar_ventana_login():
         Frame_botones,
         text="Ingrese su contraseña:",
         font=("Serif", 15, "bold"),
-        bg="#8FBC8F",
-        fg="#2E322E"
+        bg="#80ac8e",
+        fg="#2E322E",
     )
     Texto_Sesion.place(y=280, x=15)
 
@@ -152,7 +148,8 @@ def Mostrar_ventana_login():
         width=40,
         font=("Serif", 15, "bold"),
         bg="#F7F4EC",
-        fg="#2E322E"
+        fg="#2E322E",
+        relief="solid"
     )
     Ingreso__passwd.place(y=320, x=15)
 
@@ -165,11 +162,11 @@ def Mostrar_ventana_login():
         font=("Serif", 12, "bold"),
         onvalue=1,
         offvalue=0,
-        bg="#8FBC8F",
+        bg="#80ac8e",
         fg="#2E322E",
         relief="flat",
         borderwidth=0,
-        highlightbackground="#8FBC8F",
+        highlightbackground="#80ac8e",
         highlightthickness=0
         
     ).place(y=360, x=15)
@@ -182,7 +179,8 @@ def Mostrar_ventana_login():
         font=("Serif", 15, "bold"),
         bg="#F7F4EC",
         fg="#2E322E",
-        command=lambda:login_interfaz(Ingreso__sesion, Ingreso__passwd, recuerdame)
+        command=lambda:login_interfaz(Ingreso__sesion, Ingreso__passwd, recuerdame),
+        relief="raised",
     )
     Boton_ingresar.place(y=380, x=180)
 
@@ -193,7 +191,7 @@ def Mostrar_ventana_login():
     Label_logo = tk.Label(
         Frame_botones,
         image=Final_Logo,
-        bg="#8FBC8F"
+        bg="#80ac8e"
     )
     Label_logo.image = Final_Logo
     Label_logo.place(y=440, x=50)
@@ -202,11 +200,13 @@ def Mostrar_ventana_login():
         Frame_botones,
         text="  ¿No tiene cuenta?. Regístrese aquí  ",
         font=("Serif", 12, "bold"),
-        bg="#8FBC8F",
+        bg="#80ac8e",
         fg="#2E322E",
         highlightthickness=1,
-        highlightbackground="#F7F4EC",
-        command=Mostrar_ventana_registro
+        highlightbackground="#2E322E",
+        command=Mostrar_ventana_registro,
+        relief="flat",
+
 
     )
     No_tiene_cuenta.place(y=750, x=100)
@@ -230,7 +230,7 @@ def Mostrar_ventana_registro():
         side="left"
     )
 
-    imagen = Image.open("imagenes/imagen_login.jpg")
+    imagen = Image.open("imagenes/login_ilustracion.png")
     imagen = imagen.resize((1000,800))
     imagen_login = ImageTk.PhotoImage(imagen)
 
@@ -238,18 +238,9 @@ def Mostrar_ventana_registro():
     label_imagen.image = imagen_login
     label_imagen.pack(pady=0)
 
-    Bienvenido = tk.Label(
-        frame_login,
-        text=" Bienvenido a EasyFinance ",
-        font=("Serif", 30, "bold"),
-        bg="Black",
-        fg="White"
-    ).place(x=250, y=20)
-
-
     Frame_botones = tk.Frame(
         Main_window,
-        bg="#8FBC8F",
+        bg="#80ac8e",
         width=500,
         height=800
     )
@@ -263,7 +254,7 @@ def Mostrar_ventana_registro():
         Frame_botones,
         text="Registro de Usuario",
         font=("Serif", 23, "bold"),
-        bg="#8FBC8F",
+        bg="#80ac8e",
         fg="White"
     )
     Inicio_sesion.place(y=50, x=100)
@@ -273,8 +264,8 @@ def Mostrar_ventana_registro():
         Frame_botones,
         text="Ingrese su nuevo usuario:",
         font=("Serif", 15, "bold"),
-        bg="#8FBC8F",
-        fg="Black"
+        bg="#80ac8e",
+        fg="#2E322E"
     )
     Texto_Sesion.place(y=200, x=15)
 
@@ -283,7 +274,8 @@ def Mostrar_ventana_registro():
         width=40,
         font=("Serif", 15, "bold"),
         bg="#F7F4EC",
-        fg="#2E322E"
+        fg="#2E322E",
+        relief="solid"
     )
     Ingreso__sesion.place(y=240, x=15)
 
@@ -292,7 +284,7 @@ def Mostrar_ventana_registro():
         Frame_botones,
         text="Cree una contraseña segura:",
         font=("Serif", 15, "bold"),
-        bg="#8FBC8F",
+        bg="#80ac8e",
         fg="#2E322E"
     )
     Texto_Sesion.place(y=280, x=15)
@@ -303,7 +295,8 @@ def Mostrar_ventana_registro():
         width=40,
         font=("Serif", 15, "bold"),
         bg="#F7F4EC",
-        fg="#2E322E"
+        fg="#2E322E",
+        relief="solid"
     )
     Ingreso__passwd.place(y=320, x=15)
 
@@ -324,7 +317,7 @@ def Mostrar_ventana_registro():
     Label_logo = tk.Label(
         Frame_botones,
         image=Final_Logo,
-        bg="#8FBC8F"
+        bg="#80ac8e"
     )
     Label_logo.image = Final_Logo
     Label_logo.place(y=440, x=50)
@@ -333,11 +326,12 @@ def Mostrar_ventana_registro():
         Frame_botones,
         text="  ¿Ya tiene cuenta?. Inicie sesión aquí  ",
         font=("Serif", 12, "bold"),
-        bg="#8FBC8F",
+        bg="#80ac8e",
         fg="#2E322E",
         highlightthickness=1,
-        highlightbackground="#F7F4EC",
-        command=Mostrar_ventana_login
+        highlightbackground="#2E322E",
+        command=Mostrar_ventana_login,
+        relief="flat",
     )
     No_tiene_cuenta.place(y=750, x=90)
 

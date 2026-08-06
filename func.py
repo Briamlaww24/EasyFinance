@@ -5,46 +5,35 @@ import os
 import time
 import tkinter as tk
 from tkinter import messagebox, ttk
-from datetime import datetime
+from datetime import datetime, date
 from pandas import DataFrame, read_excel, concat
 
-def main_login():
-    while True: 
-        print("Bienvenido desea crear una cuenta o logearse en una existente)?")
-        respueta = questionary.select(
-            message="",    
-            instruction="(Usa las flechas)",
-            choices=[
-                "Iniciar Sesion",
-                "Registrarme",
-                "Salir"
-            ],
-        ).ask()
+###############################################################################
+###############################################################################
 
-        registro = ""
-        if respueta == "Iniciar Sesion" :
-            usr = input("Ingrese su nombre de usuario: ")
-            passwd = input("Ingrese su contraseña: ")
-            Sesion = (f"{usr},{passwd}")
-            with open("base_de_datos.txt", "r") as f:
-                lectura = f.read()
-            if Sesion in lectura :
-                print("Bienvenido al systema")
-                time.sleep(1)
-                break
-            else: 
-                print("Error")
+datos_nuevos = {
+    'Fecha': [],
+    'Producto': [],
+    'Precio': [],
+    'Cantidad': [],
+    'Tipo': []
+}
 
-        elif respueta == "Registrarme" :
-            usr2 = input("Ingrese el nombre de usuario a registrar: ")
-            passwd2 = input("Ingrese su contraseña: ")
-            registro = (f"{usr2},{passwd2}")
-            with open("base_de_datos.txt", "a", encoding="utf-8") as f:
-                f.write(registro+"\n")
+datos_utilidad = {
+    'Ingresos Totales': [],
+    'Egresos Totales': [],
+    'Envíos Totales': [],
+    'Utilidad Neta': []
+}
 
-        elif respueta == "Salir":
-            quit()
-    return usr
+fecha_actual = date.today().strftime("%Y/%m/%d")
+fecha_actual2 = date.today().strftime("%Y-%m-%d")
+Hora_actual = datetime.now().strftime("%H:%M:%S")
+utililidad = 0.0
+
+###############################################################################
+###############################################################################
+
 
 def formatear_excel(Usuario_actual):
 
@@ -77,7 +66,7 @@ def login_interfaz(user, passwd):
     else: 
         print("Error")
         tk.messagebox.showerror("Error", "Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.")
-
+    
 
 def registro_interfaz(user, passwd):
 
@@ -160,7 +149,7 @@ def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cant
     limpiar_widgets(descripcion)
     limpiar_widgets(monto)
     limpiar_widgets(cantidad)
-    tipo_operacion.set("")
+    # tipo_operacion.set("")
 
     return utililidad
 

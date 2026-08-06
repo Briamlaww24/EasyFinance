@@ -562,7 +562,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         relief="flat",
         highlightthickness=2,
         highlightbackground="#2E322E",
-        command=lambda: fc.registrar_operacion_interfaz(fecha_actual, tipo_operacion, Descripcion, Monto, Cantidad, User, Utilidad)
+        command=lambda: (fc.registrar_operacion_interfaz(fecha_actual, tipo_operacion, Descripcion, Monto, Cantidad, User, Utilidad), fc.cargar_tabla_transacciones(tabla, Usuario_actual))
     )
     Registrar_todo.place(x=39, y=535)
 
@@ -580,11 +580,37 @@ def Mostrar_ventana_principal(Usuario_actual):
     rueda_y = tk.Scrollbar(frame_tabla_excel, orient="vertical")
     rueda_y.pack(side="left", fill="y")
 
+    #Estilo de la tabla del excel
+
+    Estilo = ttk.Style()
+    Estilo.configure(
+        "Treeview",
+        background="#F7F4EC",
+        fieldbackground="#F7F4EC",
+        foreground="#2E322E"
+                     
+    )
+    Estilo.configure(
+        "Treeview.Heading",
+        background="#1D7A6E",
+        foreground="#2E322E",
+        font=("Serif", 11, "bold")
+    )
+
+    Estilo.map(
+        "Treeview.Heading",
+        background=[("active", "#3FA66B")]
+    )
+
+    ########################################################
+
     tabla = ttk.Treeview(
         frame_tabla_excel,
         columns=("Fecha", "Producto", "Precio", "Cantidad", "Tipo"),
         show="headings",
-        yscrollcommand=rueda_y.set
+        yscrollcommand=rueda_y.set,
+        height=29,
+        
     )
     tabla.pack(fill="both", expand=True)
 
@@ -599,8 +625,8 @@ def Mostrar_ventana_principal(Usuario_actual):
 
     tabla.column("Fecha", width=160, anchor="center")
     tabla.column("Producto", width=190, anchor="center")
-    tabla.column("Precio", width=110, anchor="center")
-    tabla.column("Cantidad", width=70, anchor="center")
+    tabla.column("Precio", width=106, anchor="center")
+    tabla.column("Cantidad", width=75, anchor="center")
     tabla.column("Tipo", width=90, anchor="center")
 
     fc.cargar_tabla_transacciones(tabla, Usuario_actual)

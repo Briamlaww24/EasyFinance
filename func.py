@@ -1,11 +1,10 @@
 from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 import questionary
-import random
 import os
 import time
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, ttk
 from datetime import datetime
 from pandas import DataFrame, read_excel, concat
 
@@ -189,3 +188,31 @@ def definir_color_botones_ingreso(tipo_operacion, registrar_ingreso, registrar_e
         registrar_envio.configure(bg="#3FA66B")
         registrar_ingreso.configure(bg="#1D7A6E")
         registrar_egreso.configure(bg="#1D7A6E")
+
+def cargar_tabla_transacciones(Tree, Usuario):
+    for item in Tree.get_children():
+        Tree.delete(item)
+
+    try:
+        df = read_excel(f"Reporte-EasyFinance-{Usuario}.xlsx", sheet_name="Datos")
+
+    except FileNotFoundError:
+        df = DataFrame(columns=["Fecha", "Producto", "Precio", "Cantidad", "Tipo"])
+
+    if df.empty:
+        return
+
+    for index, fila in df.iterrows():
+
+        Tree.insert(
+            "",
+            "end",
+            values=(
+                fila["Fecha"],
+                fila["Producto"],
+                fila["Precio"],
+                fila["Cantidad"],
+                fila["Tipo"],
+        
+            ),
+        )

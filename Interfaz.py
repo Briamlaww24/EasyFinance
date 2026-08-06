@@ -1,7 +1,7 @@
 import os
 import tkinter as tk
 from PIL import Image, ImageTk
-from tkinter import messagebox
+from tkinter import messagebox, ttk
 import func as fc
 
 ##############################################################################
@@ -347,6 +347,7 @@ def Mostrar_ventana_registro():
     )
     No_tiene_cuenta.place(y=750, x=90)
 
+
 def Mostrar_ventana_principal(Usuario_actual):
     for widget in Main_window.winfo_children():
         widget.destroy()
@@ -399,7 +400,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         width=700,
         height=100
     )
-    frame_utilidad.place(x=750, y=30)
+    frame_utilidad.place(x=775, y=30)
 
     frame_registrar_operacion = tk.Frame(
         Main_window,
@@ -407,7 +408,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         width=700,
         height=600
     )
-    frame_registrar_operacion.place(x=750, y=150)
+    frame_registrar_operacion.place(x=775, y=150)
 
     tk.Label(
         frame_registrar_operacion,
@@ -468,6 +469,11 @@ def Mostrar_ventana_principal(Usuario_actual):
         command=lambda: setear_variable_tipo_operacion(tipo_operacion, "-(Envio)")
     )
     registrar_envio.place(x=420, y=10)
+
+    def setear_variable_tipo_operacion(operacion, tipo):
+            operacion.set(tipo)
+            fc.definir_color_botones_ingreso(tipo_operacion, registrar_ingreso, registrar_egreso, registrar_envio)
+    
 
     tk.Label(
         frame_registrar_operacion,
@@ -560,9 +566,44 @@ def Mostrar_ventana_principal(Usuario_actual):
     )
     Registrar_todo.place(x=39, y=535)
 
-    def setear_variable_tipo_operacion(operacion, tipo):
-        operacion.set(tipo)
-        fc.definir_color_botones_ingreso(tipo_operacion, registrar_ingreso, registrar_egreso, registrar_envio)
+    ##############################################################################
+    ##############################################################################
+
+    frame_tabla_excel = tk.Frame(
+        Main_window,
+        bg="#8A8F87",
+        width=650,
+        height=600
+    )
+    frame_tabla_excel.place(x=118, y=150)
+
+    rueda_y = tk.Scrollbar(frame_tabla_excel, orient="vertical")
+    rueda_y.pack(side="left", fill="y")
+
+    tabla = ttk.Treeview(
+        frame_tabla_excel,
+        columns=("Fecha", "Producto", "Precio", "Cantidad", "Tipo"),
+        show="headings",
+        yscrollcommand=rueda_y.set
+    )
+    tabla.pack(fill="both", expand=True)
+
+
+    rueda_y.config(command=tabla.yview)
+
+    tabla.heading("Fecha", text="Fecha")
+    tabla.heading("Producto", text="Producto")
+    tabla.heading("Precio", text="Precio")
+    tabla.heading("Cantidad", text="Cantidad")
+    tabla.heading("Tipo", text="Tipo")
+
+    tabla.column("Fecha", width=160, anchor="center")
+    tabla.column("Producto", width=190, anchor="center")
+    tabla.column("Precio", width=110, anchor="center")
+    tabla.column("Cantidad", width=70, anchor="center")
+    tabla.column("Tipo", width=90, anchor="center")
+
+    fc.cargar_tabla_transacciones(tabla, Usuario_actual)
 
 
 Mostrar_ventana_login()

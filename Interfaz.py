@@ -224,8 +224,10 @@ def Mostrar_ventana_login():
     )
     No_tiene_cuenta.place(y=750, x=100)
 
-Utilidad = 0
-utililidad = tk.DoubleVar(value=0.0)
+var_utililidad_total = tk.DoubleVar(value=0.0)
+var_utililidad_envios = tk.DoubleVar(value=0.0)
+var_utililidad_egresos = tk.DoubleVar(value=0.0)
+var_utililidad = tk.DoubleVar(value=0.0)
 
 def Mostrar_ventana_registro():
     for widget in Main_window.winfo_children():
@@ -403,15 +405,15 @@ def Mostrar_ventana_principal(Usuario_actual):
     frame_utilidad = tk.Frame(
         Main_window,
         bg="#8FBC8F",
-        width=700,
+        width=730,
         height=100
     )
-    frame_utilidad.place(x=775, y=30)
+    frame_utilidad.place(x=755, y=30)
 
     numeros_utilidad = tk.Frame(
         frame_utilidad,
         bg="#F7F4EC",
-        width=175,
+        width=170,
         height=80,
     )
     numeros_utilidad.place(x=10, y=10)
@@ -426,13 +428,96 @@ def Mostrar_ventana_principal(Usuario_actual):
 
     Utilidad_ingresos = tk.Label(
         numeros_utilidad,
-        textvariable=utililidad,
-        text=utililidad,
+        textvariable=var_utililidad,
         font=("Serif", 20, "bold"),
         fg="#3FA66B",
         bg="#F7F4EC"
     )
     Utilidad_ingresos.place(x=5, y=30)
+
+    # Framde de los egresos
+
+    numeros_utilidad_egresos = tk.Frame(
+        frame_utilidad,
+        bg="#F7F4EC",
+        width=170,
+        height=80,
+    )
+    numeros_utilidad_egresos.place(x=190, y=10)
+
+    tk.Label(
+        numeros_utilidad_egresos,
+        text="EGRESOS:",
+        font=("Serif", 10, "bold"),
+        fg="#8A8F87",
+        bg="#F7F4EC"
+    ).place(x=5, y=5)
+
+    Utilidad_egresos = tk.Label(
+        numeros_utilidad_egresos,
+        textvariable=var_utililidad_egresos,
+        text=f"{var_utililidad_egresos.get():.2f}$",
+        font=("Serif", 20, "bold"),
+        fg="#C0503B",
+        bg="#F7F4EC"
+    )
+    Utilidad_egresos.place(x=5, y=30)
+
+    # Frame de los Envios
+
+    numeros_utilidad_envios = tk.Frame(
+        frame_utilidad,
+        bg="#F7F4EC",
+        width=170,
+        height=80,
+    )
+    numeros_utilidad_envios.place(x=370, y=10)
+
+    tk.Label(
+        numeros_utilidad_envios,
+        text="ENVÍOS:",
+        font=("Serif", 10, "bold"),
+        fg="#8A8F87",
+        bg="#F7F4EC"
+    ).place(x=5, y=5)
+
+    Utilidad_envios = tk.Label(
+        numeros_utilidad_envios,
+        textvariable=var_utililidad_envios,
+        text=f"{var_utililidad_envios.get():.2f}$",
+        font=("Serif", 20, "bold"),
+        fg="#C98A2E",
+        bg="#F7F4EC"
+    )
+    Utilidad_envios.place(x=5, y=30)
+
+    # Frame de la Utilidad Total
+
+    numeros_utilidad_total = tk.Frame(
+        frame_utilidad,
+        bg="#2E322E",
+        width=170,
+        height=80,
+    )
+    numeros_utilidad_total.place(x=550, y=10)
+
+    tk.Label(
+        numeros_utilidad_total,
+        text="UTILIDAD NETA:",
+        font=("Serif", 10, "bold"),
+        fg="#8A8F87",
+        bg="#2E322E"
+    ).place(x=5, y=5)
+
+    Utilidad_total = tk.Label(
+        numeros_utilidad_total,
+        textvariable=var_utililidad_total,
+        text=f"{var_utililidad_total.get():.2f}$",
+        font=("Serif", 20, "bold"),
+        fg="#3FA66B",
+        bg="#2E322E"
+    )
+    Utilidad_total.place(x=5, y=30)
 
  #########################################################
 
@@ -596,7 +681,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         relief="flat",
         highlightthickness=2,
         highlightbackground="#2E322E",
-        command=lambda: (fc.registrar_operacion_interfaz(fecha_actual2, tipo_operacion, Descripcion, Monto, Cantidad, User, utililidad), fc.cargar_tabla_transacciones(tabla, Usuario_actual))
+        command=lambda: (fc.registrar_operacion_interfaz(fecha_actual2, tipo_operacion, Descripcion, Monto, Cantidad, User, var_utililidad), fc.cargar_tabla_transacciones(tabla, Usuario_actual))
     )
     Registrar_todo.place(x=39, y=535)
 

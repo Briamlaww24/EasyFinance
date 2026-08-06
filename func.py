@@ -144,12 +144,16 @@ def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cant
 
         formatear_excel(Usuario_actual)
 
-        tk.messagebox.showinfo("Operacion Registrada", "Su operacion ah sido registrada correctamente en el sistema.")
+        #####################################################################################
 
-    limpiar_widgets(descripcion)
-    limpiar_widgets(monto)
-    limpiar_widgets(cantidad)
-    # tipo_operacion.set("")
+        limpiar_widgets(descripcion)
+        limpiar_widgets(monto)
+        limpiar_widgets(cantidad)
+        # tipo_operacion.set("")
+
+        #####################################################################################
+
+        tk.messagebox.showinfo("Operacion Registrada", "Su operacion ah sido registrada correctamente en el sistema.")
 
     return utililidad
 

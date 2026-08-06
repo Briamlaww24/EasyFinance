@@ -1,6 +1,5 @@
 from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
-import questionary
 import os
 import time
 import tkinter as tk
@@ -29,7 +28,7 @@ datos_utilidad = {
 fecha_actual = date.today().strftime("%Y/%m/%d")
 fecha_actual2 = date.today().strftime("%Y-%m-%d")
 Hora_actual = datetime.now().strftime("%H:%M:%S")
-utililidad = 0.0
+
 
 ###############################################################################
 ###############################################################################
@@ -130,9 +129,7 @@ def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cant
         tk.messagebox.showerror("Error", "Ninguno de los campos debe estar vacio para poder registrar una operación")
 
     else:
-
-        utililidad += (float(precio) * int(cantidad_de_productos))
-
+        
         try:
             df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
 
@@ -143,6 +140,10 @@ def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cant
         df.to_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", index=False, sheet_name="Datos")
 
         formatear_excel(Usuario_actual)
+
+        if tipo == "+(Ingreso)":
+            utililidad.set(utililidad.get() + (float(precio) * int(cantidad_de_productos)))
+                
 
         #####################################################################################
 

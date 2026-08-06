@@ -3,6 +3,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 from tkinter import messagebox, ttk
 import func as fc
+from datetime import date
 
 ##############################################################################
 ##############################################################################
@@ -224,6 +225,7 @@ def Mostrar_ventana_login():
     No_tiene_cuenta.place(y=750, x=100)
 
 Utilidad = 0
+utililidad = tk.DoubleVar(value=0.0)
 
 def Mostrar_ventana_registro():
     for widget in Main_window.winfo_children():
@@ -355,6 +357,7 @@ def Mostrar_ventana_principal(Usuario_actual):
     User = Usuario_actual
 
     fecha_actual = fc.Obtener_fecha_actual()
+    fecha_actual2 = date.today().strftime("%Y-%m-%d")
 
     imagen = Image.open("imagenes/_.png")
     imagen = imagen.resize((1500,800))
@@ -394,6 +397,9 @@ def Mostrar_ventana_principal(Usuario_actual):
         font=("Serif", 15, "bold")
     ).place(x=135, y=60)
 
+ #######################################################
+ # Frame de la Utilidad
+
     frame_utilidad = tk.Frame(
         Main_window,
         bg="#8FBC8F",
@@ -401,6 +407,34 @@ def Mostrar_ventana_principal(Usuario_actual):
         height=100
     )
     frame_utilidad.place(x=775, y=30)
+
+    numeros_utilidad = tk.Frame(
+        frame_utilidad,
+        bg="#F7F4EC",
+        width=175,
+        height=80,
+    )
+    numeros_utilidad.place(x=10, y=10)
+
+    tk.Label(
+        numeros_utilidad,
+        text="INGRESOS:",
+        font=("Serif", 10, "bold"),
+        fg="#8A8F87",
+        bg="#F7F4EC"
+    ).place(x=5, y=5)
+
+    Utilidad_ingresos = tk.Label(
+        numeros_utilidad,
+        textvariable=utililidad,
+        text=utililidad,
+        font=("Serif", 20, "bold"),
+        fg="#3FA66B",
+        bg="#F7F4EC"
+    )
+    Utilidad_ingresos.place(x=5, y=30)
+
+ #########################################################
 
     frame_registrar_operacion = tk.Frame(
         Main_window,
@@ -562,7 +596,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         relief="flat",
         highlightthickness=2,
         highlightbackground="#2E322E",
-        command=lambda: (fc.registrar_operacion_interfaz(fecha_actual, tipo_operacion, Descripcion, Monto, Cantidad, User, Utilidad), fc.cargar_tabla_transacciones(tabla, Usuario_actual))
+        command=lambda: (fc.registrar_operacion_interfaz(fecha_actual2, tipo_operacion, Descripcion, Monto, Cantidad, User, utililidad), fc.cargar_tabla_transacciones(tabla, Usuario_actual))
     )
     Registrar_todo.place(x=39, y=535)
 

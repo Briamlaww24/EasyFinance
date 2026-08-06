@@ -437,7 +437,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         relief="flat",
         highlightthickness=2,
         highlightbackground="#2E322E",
-        command=lambda: tipo_operacion.set("+(Ingreso)"),
+        command=lambda: setear_variable_tipo_operacion(tipo_operacion, "+(Ingreso)"),
     )
     registrar_ingreso.place(x=10, y=10)
 
@@ -451,7 +451,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         relief="flat",
         highlightthickness=2,
         highlightbackground="#2E322E",
-        command=lambda: tipo_operacion.set("-(Egreso)")
+        command=lambda: setear_variable_tipo_operacion(tipo_operacion, "-(Egreso)")
     )
     registrar_egreso.place(x=220, y=10)
 
@@ -465,7 +465,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         relief="flat",
         highlightthickness=2,
         highlightbackground="#2E322E",
-        command=lambda: tipo_operacion.set("-(Envio)")
+        command=lambda: setear_variable_tipo_operacion(tipo_operacion, "-(Envio)")
     )
     registrar_envio.place(x=420, y=10)
 
@@ -559,6 +559,11 @@ def Mostrar_ventana_principal(Usuario_actual):
         command=lambda: fc.registrar_operacion_interfaz(fecha_actual, tipo_operacion, Descripcion, Monto, Cantidad, User, Utilidad)
     )
     Registrar_todo.place(x=39, y=535)
+
+    def setear_variable_tipo_operacion(operacion, tipo):
+        operacion.set(tipo)
+        fc.definir_color_botones_ingreso(tipo_operacion, registrar_ingreso, registrar_egreso, registrar_envio)
+
 
 Mostrar_ventana_login()
 Main_window.mainloop()

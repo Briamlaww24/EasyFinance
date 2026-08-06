@@ -156,6 +156,8 @@ def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cant
 
         formatear_excel(Usuario_actual)
 
+        tk.messagebox.showinfo("Operacion Registrada", "Su operacion ah sido registrada correctamente en el sistema.")
+
     limpiar_widgets(descripcion)
     limpiar_widgets(monto)
     limpiar_widgets(cantidad)
@@ -165,3 +167,25 @@ def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cant
 
 def limpiar_widgets(widget):
     widget.delete(0, "end")
+
+
+def definir_color_botones_ingreso(tipo_operacion, registrar_ingreso, registrar_egreso, registrar_envio):
+    if tipo_operacion.get == "":
+        registrar_ingreso.configure(bg="#1D7A6E")
+        registrar_egreso.configure(bg="#1D7A6E")
+        registrar_envio.configure(bg="#1D7A6E")
+
+    elif tipo_operacion.get() == "+(Ingreso)":
+        registrar_ingreso.configure(bg="#3FA66B")
+        registrar_egreso.configure(bg="#1D7A6E")
+        registrar_envio.configure(bg="#1D7A6E")
+
+    elif tipo_operacion.get() == "-(Egreso)":
+        registrar_egreso.configure(bg="#3FA66B")
+        registrar_ingreso.configure(bg="#1D7A6E")
+        registrar_envio.configure(bg="#1D7A6E")
+
+    elif tipo_operacion.get() == "-(Envio)":
+        registrar_envio.configure(bg="#3FA66B")
+        registrar_ingreso.configure(bg="#1D7A6E")
+        registrar_egreso.configure(bg="#1D7A6E")

@@ -273,4 +273,14 @@ def calcular_utilidades_totales(Usuario_actual, var_ingreso, var_egreso, var_env
 
         pass
 
+def actualizar_hora(frame, hora):
+
+    hora = Obtener_fecha_actual()
+    frame.after(1000, actualizar_hora)
+
+def logout():
+    with open("recuerdame.txt", "w", encoding="utf-8") as f:
+        olvidar = ""
+        f.write(olvidar)
+
 

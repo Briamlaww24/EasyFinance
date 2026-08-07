@@ -359,7 +359,7 @@ def Mostrar_ventana_principal(Usuario_actual):
 
     fecha_actual = fc.Obtener_fecha_actual()
     fecha_actual2 = date.today().strftime("%Y-%m-%d")
-
+    
     imagen = Image.open("imagenes/_.png")
     imagen = imagen.resize((1500,800))
     imagen_fondo = ImageTk.PhotoImage(imagen)
@@ -369,6 +369,8 @@ def Mostrar_ventana_principal(Usuario_actual):
     label_imagen.place(x=0, y=0)
 
     Main_window.configure(bg="#F7F4EC")
+
+    ###########################################################################################
 
     frame_menu = tk.Frame(
         Main_window,
@@ -381,6 +383,56 @@ def Mostrar_ventana_principal(Usuario_actual):
         expand=False,
         side="left"
     )
+
+    # Boton de la Casa
+
+    logo_casa = Image.open("imagenes/casa.png")
+    logo_casa = logo_casa.resize((77, 77))
+    logo_casa_fondo = ImageTk.PhotoImage(logo_casa)
+    Boton_casa = tk.Button(
+        frame_menu,
+        bg="#2E322E",
+        image=logo_casa_fondo,
+        relief="flat",
+        command=lambda: Mostrar_ventana_principal(Usuario_actual),
+    )
+    Boton_casa.image = logo_casa_fondo
+    Boton_casa.place(x=8, y=8)
+
+    # Boton de los Graficos
+
+    logo_grafico = Image.open("imagenes/graficos.png")
+    logo_grafico = logo_grafico.resize((77, 77))
+    logo_grafico_fondo = ImageTk.PhotoImage(logo_grafico)
+    Boton_grafico = tk.Button(
+        frame_menu,
+        bg="#2E322E",
+        image=logo_grafico_fondo,
+        relief="flat",
+        command=lambda: Mostrar_ventana_graficos(),
+    )
+    Boton_grafico.image = logo_grafico_fondo
+    Boton_grafico.place(x=8, y=98)
+
+    # Boton del Logout
+
+    logo_logout = Image.open("imagenes/logout.png")
+    logo_logout = logo_logout.resize((77, 77))
+    logo_logout_fondo = ImageTk.PhotoImage(logo_logout)
+    Boton_logout = tk.Button(
+        frame_menu,
+        bg="#8FBC8F",
+        image=logo_logout_fondo,
+        relief="flat",
+        command=lambda: (fc.logout(), Mostrar_ventana_login()),
+        highlightthickness=0,
+        activebackground="#5E8A6E"
+    )
+    Boton_logout.image = logo_logout_fondo
+    Boton_logout.place(x=8, y=710)
+
+
+    ###########################################################################################
 
     tk.Label(
         Main_window,
@@ -667,6 +719,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         bg="#8FBC8F",
         fg="#2E322E",
     ).place(x=90, y="377")
+    fc.actualizar_hora(frame_registrar_operacion, fecha_actual)
 
     Registrar_todo = tk.Button(
         frame_registrar_operacion,
@@ -747,6 +800,9 @@ def Mostrar_ventana_principal(Usuario_actual):
     tabla.column("Tipo", width=90, anchor="center")
 
     fc.cargar_tabla_transacciones(tabla, Usuario_actual)
+
+def Mostrar_ventana_graficos():
+    pass
 
 
 Mostrar_ventana_login()

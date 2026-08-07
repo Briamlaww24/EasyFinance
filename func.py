@@ -101,7 +101,7 @@ def Obtener_fecha_actual():
     formateo_fecha = f"{dia} de {mes} de {anio}"
     return formateo_fecha
 
-def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cantidad, Usuario_actual, utililidad, utilidad_egresos, utilidad_envios, utlidad_total):
+def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cantidad, Usuario_actual, utililidad, utilidad_egresos, utilidad_envios, utlidad_total, Label_utlidad_total):
 
     datos_nuevos = {
     'Fecha': [],
@@ -153,6 +153,15 @@ def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cant
         
         resultado_utilidad_total = utililidad.get() - (utilidad_egresos.get() + utilidad_envios.get())
         utlidad_total.set(f"{resultado_utilidad_total:.2f}")
+
+        if utlidad_total.get() <= 0:
+            Label_utlidad_total.configure(
+                fg="#C0503B"
+            )
+        else:
+            Label_utlidad_total.configure(
+                fg="#3FA66B"
+            )
 
         #####################################################################################
 
@@ -226,40 +235,42 @@ def calcular_utilidades_totales(Usuario_actual, var_ingreso, var_egreso, var_env
     envio = 0
     total = 0
 
-    df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
-
-    for index, item in enumerate(df["Tipo"]):
-        if item == "+(Ingreso)":
-            ingreso += df["Precio"][index] * df["Cantidad"][index]
-
-    for index, item in enumerate(df["Tipo"]):
-        if item == "-(Egreso)":
-            egreso += df["Precio"][index] * df["Cantidad"][index]
-
-    for index, item in enumerate(df["Tipo"]):
-        if item == "-(Envio)":
-            envio += df["Precio"][index] * df["Cantidad"][index]
-
-    total = ingreso - (egreso + envio)
-
-    var_ingreso.set(f"{ingreso:.2f}")
-    var_egreso.set(f"{egreso:.2f}")
-    var_envio.set(f"{envio:.2f}")
-    var_total.set(f"{total:.2f}")
-
-    if var_total.get() <= 0:
-        Label_utlidad_total.configure(
-            fg="#C0503B"
-        )
-    else:
-        Label_utlidad_total.configure(
-            fg="#3FA66B"
-        )
-
-
-    return var_ingreso, var_egreso, var_envio, var_total
-
-
+    try:
+        df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
     
-    
+
+        for index, item in enumerate(df["Tipo"]):
+            if item == "+(Ingreso)":
+                ingreso += df["Precio"][index] * df["Cantidad"][index]
+
+        for index, item in enumerate(df["Tipo"]):
+            if item == "-(Egreso)":
+                egreso += df["Precio"][index] * df["Cantidad"][index]
+
+        for index, item in enumerate(df["Tipo"]):
+            if item == "-(Envio)":
+                envio += df["Precio"][index] * df["Cantidad"][index]
+
+        total = ingreso - (egreso + envio)
+
+        var_ingreso.set(f"{ingreso:.2f}")
+        var_egreso.set(f"{egreso:.2f}")
+        var_envio.set(f"{envio:.2f}")
+        var_total.set(f"{total:.2f}")
+
+        if var_total.get() <= 0:
+            Label_utlidad_total.configure(
+                fg="#C0503B"
+            )
+        else:
+            Label_utlidad_total.configure(
+                fg="#3FA66B"
+            )
+
+        return var_ingreso, var_egreso, var_envio, var_total
+
+    except:
+
+        pass
+
 

@@ -424,7 +424,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         bg="#8FBC8F",
         image=logo_logout_fondo,
         relief="flat",
-        command=lambda: (fc.logout(), Mostrar_ventana_login()),
+        command=lambda: (fc.logout(var_utililidad, var_utililidad_egresos, var_utililidad_envios, var_utililidad_total), Mostrar_ventana_login()),
         highlightthickness=0,
         activebackground="#5E8A6E"
     )

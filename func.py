@@ -278,9 +278,14 @@ def actualizar_hora(frame, hora):
     hora = Obtener_fecha_actual()
     frame.after(1000, actualizar_hora)
 
-def logout():
+def logout(var_ingreso, var_egreso, var_envio, var_total):
     with open("recuerdame.txt", "w", encoding="utf-8") as f:
         olvidar = ""
         f.write(olvidar)
+
+    var_ingreso.set("0.00")
+    var_egreso.set("0.00")
+    var_envio.set("0.00")
+    var_total.set("0.00")
 
 

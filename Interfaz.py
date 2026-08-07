@@ -224,11 +224,6 @@ def Mostrar_ventana_login():
     )
     No_tiene_cuenta.place(y=750, x=100)
 
-var_utililidad_total = tk.DoubleVar(value=0.0)
-var_utililidad_envios = tk.DoubleVar(value=0.0)
-var_utililidad_egresos = tk.DoubleVar(value=0.0)
-var_utililidad = tk.DoubleVar(value=0.0)
-
 def Mostrar_ventana_registro():
     for widget in Main_window.winfo_children():
             widget.destroy()   
@@ -351,6 +346,10 @@ def Mostrar_ventana_registro():
     )
     No_tiene_cuenta.place(y=750, x=90)
 
+var_utililidad_total = tk.DoubleVar(value=0.0)
+var_utililidad_envios = tk.DoubleVar(value=0.0)
+var_utililidad_egresos = tk.DoubleVar(value=0.0)
+var_utililidad = tk.DoubleVar(value=0.0)
 
 def Mostrar_ventana_principal(Usuario_actual):
     for widget in Main_window.winfo_children():
@@ -456,7 +455,6 @@ def Mostrar_ventana_principal(Usuario_actual):
     Utilidad_egresos = tk.Label(
         numeros_utilidad_egresos,
         textvariable=var_utililidad_egresos,
-        text=f"{var_utililidad_egresos.get():.2f}$",
         font=("Serif", 20, "bold"),
         fg="#C0503B",
         bg="#F7F4EC"
@@ -484,7 +482,6 @@ def Mostrar_ventana_principal(Usuario_actual):
     Utilidad_envios = tk.Label(
         numeros_utilidad_envios,
         textvariable=var_utililidad_envios,
-        text=f"{var_utililidad_envios.get():.2f}$",
         font=("Serif", 20, "bold"),
         fg="#C98A2E",
         bg="#F7F4EC"
@@ -512,12 +509,13 @@ def Mostrar_ventana_principal(Usuario_actual):
     Utilidad_total = tk.Label(
         numeros_utilidad_total,
         textvariable=var_utililidad_total,
-        text=f"{var_utililidad_total.get():.2f}$",
         font=("Serif", 20, "bold"),
         fg="#3FA66B",
         bg="#2E322E"
     )
     Utilidad_total.place(x=5, y=30)
+
+    fc.calcular_utilidades_totales(Usuario_actual, var_utililidad, var_utililidad_egresos, var_utililidad_envios, var_utililidad_total, Utilidad_total)
 
  #########################################################
 
@@ -681,7 +679,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         relief="flat",
         highlightthickness=2,
         highlightbackground="#2E322E",
-        command=lambda: (fc.registrar_operacion_interfaz(fecha_actual2, tipo_operacion, Descripcion, Monto, Cantidad, User, var_utililidad), fc.cargar_tabla_transacciones(tabla, Usuario_actual))
+        command=lambda: (fc.registrar_operacion_interfaz(fecha_actual2, tipo_operacion, Descripcion, Monto, Cantidad, User, var_utililidad, var_utililidad_egresos, var_utililidad_envios, var_utililidad_total), fc.cargar_tabla_transacciones(tabla, Usuario_actual))
     )
     Registrar_todo.place(x=39, y=535)
 

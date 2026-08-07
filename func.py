@@ -101,7 +101,7 @@ def Obtener_fecha_actual():
     formateo_fecha = f"{dia} de {mes} de {anio}"
     return formateo_fecha
 
-def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cantidad, Usuario_actual, utililidad):
+def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cantidad, Usuario_actual, utililidad, utilidad_egresos, utilidad_envios, utlidad_total):
 
     datos_nuevos = {
     'Fecha': [],
@@ -114,16 +114,16 @@ def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cant
     datos_nuevos["Fecha"] = fecha
 
     producto = descripcion.get()
-    datos_nuevos['Producto'] = producto
+    datos_nuevos["Producto"] = producto
 
     precio = monto.get()
-    datos_nuevos['Precio'] = precio
+    datos_nuevos["Precio"] = precio
 
     cantidad_de_productos = cantidad.get()
-    datos_nuevos['Cantidad'] = cantidad_de_productos
+    datos_nuevos["Cantidad"] = cantidad_de_productos
 
     tipo = tipo_operacion.get()
-    datos_nuevos['Tipo'] = tipo
+    datos_nuevos["Tipo"] = tipo
 
     if producto == "" or precio == "" or cantidad_de_productos == "" or tipo == "" :
         tk.messagebox.showerror("Error", "Ninguno de los campos debe estar vacio para poder registrar una operación")
@@ -142,8 +142,17 @@ def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cant
         formatear_excel(Usuario_actual)
 
         if tipo == "+(Ingreso)":
-            utililidad.set(utililidad.get() + (float(precio) * int(cantidad_de_productos)))
-                
+            resultado_utilidad = utililidad.get() + (float(precio) * int(cantidad_de_productos))
+            utililidad.set(f"{resultado_utilidad:.2f}")
+        elif tipo == "-(Egreso)":
+            resultado_utilidad = utilidad_egresos.get() + (float(precio) * int(cantidad_de_productos))
+            utilidad_egresos.set(f"{resultado_utilidad:.2f}")
+        elif tipo == "-(Envio)":
+            resultado_utilidad = utilidad_envios.get() + (float(precio) * int(cantidad_de_productos))
+            utilidad_envios.set(f"{resultado_utilidad:.2f}")
+        
+        resultado_utilidad_total = utililidad.get() - (utilidad_egresos.get() + utilidad_envios.get())
+        utlidad_total.set(f"{resultado_utilidad_total:.2f}")
 
         #####################################################################################
 
@@ -154,9 +163,9 @@ def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cant
 
         #####################################################################################
 
-        tk.messagebox.showinfo("Operacion Registrada", "Su operacion ah sido registrada correctamente en el sistema.")
+        tk.messagebox.showinfo("Operacion Registrada", "Su operacion ha sido registrada correctamente en el sistema.")
 
-    return utililidad
+    return utililidad, utilidad_egresos, utilidad_envios, utlidad_total
 
 def limpiar_widgets(widget):
     widget.delete(0, "end")
@@ -210,3 +219,47 @@ def cargar_tabla_transacciones(Tree, Usuario):
         
             ),
         )
+
+def calcular_utilidades_totales(Usuario_actual, var_ingreso, var_egreso, var_envio, var_total, Label_utlidad_total):
+    ingreso = 0
+    egreso = 0
+    envio = 0
+    total = 0
+
+    df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
+
+    for index, item in enumerate(df["Tipo"]):
+        if item == "+(Ingreso)":
+            ingreso += df["Precio"][index] * df["Cantidad"][index]
+
+    for index, item in enumerate(df["Tipo"]):
+        if item == "-(Egreso)":
+            egreso += df["Precio"][index] * df["Cantidad"][index]
+
+    for index, item in enumerate(df["Tipo"]):
+        if item == "-(Envio)":
+            envio += df["Precio"][index] * df["Cantidad"][index]
+
+    total = ingreso - (egreso + envio)
+
+    var_ingreso.set(f"{ingreso:.2f}")
+    var_egreso.set(f"{egreso:.2f}")
+    var_envio.set(f"{envio:.2f}")
+    var_total.set(f"{total:.2f}")
+
+    if var_total.get() <= 0:
+        Label_utlidad_total.configure(
+            fg="#C0503B"
+        )
+    else:
+        Label_utlidad_total.configure(
+            fg="#3FA66B"
+        )
+
+
+    return var_ingreso, var_egreso, var_envio, var_total
+
+
+    
+    
+

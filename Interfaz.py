@@ -818,7 +818,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         relief="flat",
         highlightthickness=2,
         highlightbackground="#2E322E",
-        command=lambda: os.system(f"xdg-open Reporte-EasyFinance-{Usuario_actual}.xlsx")
+        command=lambda: fc.exportar_reporte_en_excel(Usuario_actual)
     )
     Boton_exportar_excel.place(x=345, y=17)
 

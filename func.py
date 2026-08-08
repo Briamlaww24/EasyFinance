@@ -292,4 +292,13 @@ def logout(var_ingreso, var_egreso, var_envio, var_total):
     var_envio.set("0.00")
     var_total.set("0.00")
 
+def exportar_reporte_en_excel(Usuario_actual):
+    try:
+        tk.messagebox.showinfo("Exportando Reporte", "El reporte de EasyFinance se exportara en su escritorio en formato excel (.xlsx)")
+        os.system(f"cp Reporte-EasyFinance-{Usuario_actual}.xlsx ~/Escritorio/Reporte-EasyFinance-{Usuario_actual}.xlsx")
+        os.system(f"xdg-open ~/Escritorio/Reporte-EasyFinance-{Usuario_actual}.xlsx")
+    except FileNotFoundError:
+        os.system(f"cp Reporte-EasyFinance-{Usuario_actual}.xlsx ~/Desktop/Reporte-EasyFinance-{Usuario_actual}.xlsx")
+        os.system(f"xdg-open ~/Desktop/Reporte-EasyFinance-{Usuario_actual}.xlsx")
+
 

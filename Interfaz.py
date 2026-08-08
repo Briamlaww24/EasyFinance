@@ -346,10 +346,10 @@ def Mostrar_ventana_registro():
     )
     No_tiene_cuenta.place(y=750, x=90)
 
-var_utililidad_total = tk.DoubleVar(value=0.0)
-var_utililidad_envios = tk.DoubleVar(value=0.0)
-var_utililidad_egresos = tk.DoubleVar(value=0.0)
-var_utililidad = tk.DoubleVar(value=0.0)
+var_utililidad_total = tk.DoubleVar(value=0.00)
+var_utililidad_envios = tk.DoubleVar(value=0.00)
+var_utililidad_egresos = tk.DoubleVar(value=0.00)
+var_utililidad = tk.DoubleVar(value=0.00)
 
 def Mostrar_ventana_principal(Usuario_actual):
     for widget in Main_window.winfo_children():
@@ -833,7 +833,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         highlightbackground="#2E322E",
         command=lambda: (os.system(f"rm Reporte-EasyFinance-{Usuario_actual}.xlsx"), fc.cargar_tabla_transacciones(tabla, Usuario_actual), fc.calcular_utilidades_totales(Usuario_actual, var_utililidad, var_utililidad_egresos, var_utililidad_envios, var_utililidad_total, Utilidad_total))
     )
-
+    Boton_borrar_excel.place(x=20, y=17)
 
 def Mostrar_ventana_graficos(Usuario_actual):
 

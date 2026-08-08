@@ -271,7 +271,11 @@ def calcular_utilidades_totales(Usuario_actual, var_ingreso, var_egreso, var_env
 
     except:
 
-        pass
+        var_ingreso.set(0.00)
+        var_egreso.set(0.00)
+        var_envio.set(0.00)
+        var_total.set(0.00)
+
 
 def actualizar_hora(frame, hora):
 

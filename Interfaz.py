@@ -882,6 +882,10 @@ def Mostrar_ventana_graficos(Usuario_actual):
     Boton_logout.image = logo_logout_fondo
     Boton_logout.place(x=8, y=710)
 
+    ################################################################################
+
+    
+
 
 Mostrar_ventana_login()
 Main_window.mainloop()

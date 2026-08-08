@@ -818,7 +818,9 @@ def Mostrar_ventana_principal(Usuario_actual):
         relief="flat",
         highlightthickness=2,
         highlightbackground="#2E322E",
-        command=lambda: fc.exportar_reporte_en_excel(Usuario_actual)
+        command=lambda: fc.exportar_reporte_en_excel(Usuario_actual),
+        activebackground="#2E322E",
+        activeforeground="#00FF7F"
     )
     Boton_exportar_excel.place(x=345, y=17)
 
@@ -831,7 +833,9 @@ def Mostrar_ventana_principal(Usuario_actual):
         relief="flat",
         highlightthickness=2,
         highlightbackground="#2E322E",
-        command=lambda: (os.system(f"rm Reporte-EasyFinance-{Usuario_actual}.xlsx"), fc.cargar_tabla_transacciones(tabla, Usuario_actual), fc.calcular_utilidades_totales(Usuario_actual, var_utililidad, var_utililidad_egresos, var_utililidad_envios, var_utililidad_total, Utilidad_total))
+        command=lambda: (os.system(f"rm Reporte-EasyFinance-{Usuario_actual}.xlsx"), fc.cargar_tabla_transacciones(tabla, Usuario_actual), fc.calcular_utilidades_totales(Usuario_actual, var_utililidad, var_utililidad_egresos, var_utililidad_envios, var_utililidad_total, Utilidad_total)),
+        activebackground="#2E322E",
+        activeforeground="#C0503B"
     )
     Boton_borrar_excel.place(x=20, y=17)
 

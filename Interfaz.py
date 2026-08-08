@@ -574,10 +574,10 @@ def Mostrar_ventana_principal(Usuario_actual):
     frame_registrar_operacion = tk.Frame(
         Main_window,
         bg="#8FBC8F",
-        width=700,
+        width=730,
         height=600
     )
-    frame_registrar_operacion.place(x=775, y=150)
+    frame_registrar_operacion.place(x=755, y=150)
 
     tk.Label(
         frame_registrar_operacion,
@@ -585,7 +585,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         font=("Serif", 15, "bold"),
         bg="#8FBC8F",
         fg="#2E322E"
-    ).place(x=10, y=7)
+    ).place(x=30, y=7)
 
     frame_tipo_operacion = tk.Frame(
         frame_registrar_operacion,
@@ -593,7 +593,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         width=614,
         height=60
     )
-    frame_tipo_operacion.place(x=39, y=60)
+    frame_tipo_operacion.place(x=59, y=60)
 
     tipo_operacion = tk.StringVar()
 
@@ -650,7 +650,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         font=("Serif", 15, "bold"),
         bg="#8FBC8F",
         fg="#2E322E"
-    ).place(x=39, y=140)
+    ).place(x=59, y=140)
 
     Descripcion = tk.Entry(
         frame_registrar_operacion,
@@ -662,7 +662,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         highlightcolor="#0e7c66",
         highlightthickness=2,
     )
-    Descripcion.place(x=39, y=180)
+    Descripcion.place(x=59, y=180)
 
     tk.Label(
         frame_registrar_operacion,
@@ -670,7 +670,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         font=("Serif", 15, "bold"),
         bg="#8FBC8F",
         fg="#2E322E"
-    ).place(x=39, y=230)
+    ).place(x=59, y=230)
 
     Monto = tk.Entry(
         frame_registrar_operacion,
@@ -682,7 +682,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         highlightcolor="#0e7c66",
         highlightthickness=2
     )
-    Monto.place(x=39, y=270)
+    Monto.place(x=59, y=270)
 
     tk.Label(
         frame_registrar_operacion,
@@ -690,7 +690,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         font=("Serif", 15, "bold"),
         bg="#8FBC8F",
         fg="#2E322E"
-    ).place(x=480, y=230)
+    ).place(x=500, y=230)
 
     Cantidad = tk.Entry(
         frame_registrar_operacion,
@@ -702,7 +702,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         highlightcolor="#0e7c66",
         highlightthickness=2
     )
-    Cantidad.place(x=480, y=270)
+    Cantidad.place(x=500, y=270)
 
     tk.Label(
         frame_registrar_operacion,
@@ -710,7 +710,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         font=("Serif", 15, "bold"),
         bg="#8FBC8F",
         fg="#2E322E"
-    ).place(x=30, y=330)
+    ).place(x=50, y=330)
 
     tk.Label(
         frame_registrar_operacion,
@@ -718,7 +718,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         font=("Serif", 15, "bold"),
         bg="#8FBC8F",
         fg="#2E322E",
-    ).place(x=90, y="377")
+    ).place(x=100, y="377")
     fc.actualizar_hora(frame_registrar_operacion, fecha_actual)
 
     Registrar_todo = tk.Button(
@@ -734,7 +734,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         highlightbackground="#2E322E",
         command=lambda: (fc.registrar_operacion_interfaz(fecha_actual2, tipo_operacion, Descripcion, Monto, Cantidad, User, var_utililidad, var_utililidad_egresos, var_utililidad_envios, var_utililidad_total, Utilidad_total), fc.cargar_tabla_transacciones(tabla, Usuario_actual))
     )
-    Registrar_todo.place(x=39, y=535)
+    Registrar_todo.place(x=59, y=535)
 
     ##############################################################################
     ##############################################################################
@@ -745,7 +745,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         width=650,
         height=600
     )
-    frame_tabla_excel.place(x=118, y=150)
+    frame_tabla_excel.place(x=118, y=107)
 
     rueda_y = tk.Scrollbar(frame_tabla_excel, orient="vertical")
     rueda_y.pack(side="left", fill="y")
@@ -779,7 +779,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         columns=("Fecha", "Producto", "Precio", "Cantidad", "Tipo"),
         show="headings",
         yscrollcommand=rueda_y.set,
-        height=29,
+        height=26,
         
     )
     tabla.pack(fill="both", expand=True)
@@ -793,13 +793,47 @@ def Mostrar_ventana_principal(Usuario_actual):
     tabla.heading("Cantidad", text="Cantidad")
     tabla.heading("Tipo", text="Tipo")
 
-    tabla.column("Fecha", width=160, anchor="center")
-    tabla.column("Producto", width=190, anchor="center")
+    tabla.column("Fecha", width=110, anchor="center")
+    tabla.column("Producto", width=220, anchor="center")
     tabla.column("Precio", width=106, anchor="center")
     tabla.column("Cantidad", width=75, anchor="center")
     tabla.column("Tipo", width=90, anchor="center")
 
     fc.cargar_tabla_transacciones(tabla, Usuario_actual)
+
+    frame_exportar_excel = tk.Frame(
+        Main_window, 
+        bg="#8A8F87",
+        width=616,
+        height=77
+    )
+    frame_exportar_excel.place(x=118, y=673)
+
+    Boton_exportar_excel = tk.Button(
+        frame_exportar_excel,
+        text="Exportar Excel (.xlsx)",
+        font=("Serif", 15, "bold"),
+        bg="#00FF7F",
+        fg="#2E322E",
+        relief="flat",
+        highlightthickness=2,
+        highlightbackground="#2E322E",
+        command=lambda: os.system(f"xdg-open Reporte-EasyFinance-{Usuario_actual}.xlsx")
+    )
+    Boton_exportar_excel.place(x=345, y=17)
+
+    Boton_borrar_excel = tk.Button(
+        frame_exportar_excel,
+        text="Reiniciar Operaciones",
+        font=("Serif", 15, "bold"),
+        bg="#C0503B",
+        fg="#2E322E",
+        relief="flat",
+        highlightthickness=2,
+        highlightbackground="#2E322E",
+        command=lambda: (os.system(f"rm Reporte-EasyFinance-{Usuario_actual}.xlsx"), fc.cargar_tabla_transacciones(tabla, Usuario_actual), fc.calcular_utilidades_totales(Usuario_actual, var_utililidad, var_utililidad_egresos, var_utililidad_envios, var_utililidad_total, Utilidad_total))
+    )
+
 
 def Mostrar_ventana_graficos(Usuario_actual):
 
@@ -884,7 +918,7 @@ def Mostrar_ventana_graficos(Usuario_actual):
 
     ################################################################################
 
-    
+
 
 
 Mostrar_ventana_login()

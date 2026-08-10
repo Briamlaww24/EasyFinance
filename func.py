@@ -101,7 +101,7 @@ def Obtener_fecha_actual():
     formateo_fecha = f"{dia} de {mes} de {anio}"
     return formateo_fecha
 
-def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cantidad, Usuario_actual, utililidad, utilidad_egresos, utilidad_envios, utlidad_total, Label_utlidad_total):
+def registrar_operacion_interfaz(tipo_operacion, descripcion, monto, cantidad, Usuario_actual, utililidad, utilidad_egresos, utilidad_envios, utlidad_total, Label_utlidad_total):
 
     datos_nuevos = {
     'Fecha': [],
@@ -111,6 +111,7 @@ def registrar_operacion_interfaz(fecha, tipo_operacion, descripcion, monto, cant
     'Tipo': []
     }
 
+    fecha = date.today().strftime("%Y-%m-%d")
     datos_nuevos["Fecha"] = fecha
 
     producto = descripcion.get()
@@ -181,7 +182,7 @@ def limpiar_widgets(widget):
 
 
 def definir_color_botones_ingreso(tipo_operacion, registrar_ingreso, registrar_egreso, registrar_envio):
-    if tipo_operacion.get == "":
+    if tipo_operacion.get() == "":
         registrar_ingreso.configure(bg="#1D7A6E")
         registrar_egreso.configure(bg="#1D7A6E")
         registrar_envio.configure(bg="#1D7A6E")
@@ -277,9 +278,10 @@ def calcular_utilidades_totales(Usuario_actual, var_ingreso, var_egreso, var_env
         var_total.set(0.00)
 
 
-def actualizar_hora(frame, hora):
+def actualizar_hora(frame, label_hora):
 
-    hora = Obtener_fecha_actual()
+    Actualizar_hora_actual = Obtener_fecha_actual()
+    label_hora.config(text=Actualizar_hora_actual)
     frame.after(1000, actualizar_hora)
 
 def logout(var_ingreso, var_egreso, var_envio, var_total):

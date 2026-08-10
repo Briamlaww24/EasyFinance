@@ -715,14 +715,14 @@ def Mostrar_ventana_principal(Usuario_actual):
         fg="#2E322E"
     ).place(x=50, y=330)
 
-    tk.Label(
+    Texto_Fecha = tk.Label(
         frame_registrar_operacion,
         text=f"Nota: La operacion se registrara con la fecha actual. \n ({fecha_actual})",
         font=("Serif", 15, "bold"),
         bg="#8FBC8F",
         fg="#2E322E",
     ).place(x=100, y="377")
-    fc.actualizar_hora(frame_registrar_operacion, fecha_actual)
+    fc.actualizar_hora(frame_registrar_operacion, Texto_Fecha)
 
     Registrar_todo = tk.Button(
         frame_registrar_operacion,
@@ -735,7 +735,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         relief="flat",
         highlightthickness=2,
         highlightbackground="#2E322E",
-        command=lambda: (fc.registrar_operacion_interfaz(fecha_actual2, tipo_operacion, Descripcion, Monto, Cantidad, User, var_utililidad, var_utililidad_egresos, var_utililidad_envios, var_utililidad_total, Utilidad_total), fc.cargar_tabla_transacciones(tabla, Usuario_actual))
+        command=lambda: (fc.registrar_operacion_interfaz(tipo_operacion, Descripcion, Monto, Cantidad, User, var_utililidad, var_utililidad_egresos, var_utililidad_envios, var_utililidad_total, Utilidad_total), fc.cargar_tabla_transacciones(tabla, Usuario_actual))
     )
     Registrar_todo.place(x=59, y=535)
 
@@ -918,7 +918,7 @@ def Mostrar_ventana_graficos(Usuario_actual):
         bg="#8FBC8F",
         image=logo_logout_fondo,
         relief="flat",
-        command=lambda: (fc.logout(), Mostrar_ventana_login()),
+        command=lambda: (fc.logout(var_utililidad, var_utililidad_egresos, var_utililidad_envios, var_utililidad_total), Mostrar_ventana_login()),
         highlightthickness=0,
         activebackground="#5E8A6E"
     )

@@ -22,7 +22,7 @@ def login_interfaz(user, passwd, recuerdame):
     Resto = Usuario[1:]
     Usuario_formateado = Letra1 + Resto
 
-    with open("base_de_datos.txt", "r", encoding="utf-8") as f:
+    with open("Bases_de_datos/base_de_datos.txt", "r", encoding="utf-8") as f:
         lectura = f.read()
 
     if Sesion in lectura :
@@ -30,10 +30,10 @@ def login_interfaz(user, passwd, recuerdame):
         Mostrar_ventana_principal(Usuario_formateado)
 
         if recuerdame.get():
-            with open("recuerdame.txt", "w", encoding="utf-8") as f:
+            with open("Bases_de_datos/recuerdame.txt", "w", encoding="utf-8") as f:
                 f.write(Sesion)
         else:
-            with open("recuerdame.txt", "w", encoding="utf-8") as f:
+            with open("Bases_de_datos/recuerdame.txt", "w", encoding="utf-8") as f:
                 f.write("")
 
     else:
@@ -53,12 +53,12 @@ recuerdame = tk.BooleanVar(value=False)
 
 def Mostrar_ventana_login():
 
-    if os.path.exists("recuerdame.txt"):
-        with open("recuerdame.txt", "r", encoding="utf-8") as f:
+    if os.path.exists("Bases_de_datos/recuerdame.txt"):
+        with open("Bases_de_datos/recuerdame.txt", "r", encoding="utf-8") as f:
             usuario_guardado = f.read().strip()
 
         if usuario_guardado:
-            with open("base_de_datos.txt", "r", encoding="utf-8") as f:
+            with open("Bases_de_datos/base_de_datos.txt", "r", encoding="utf-8") as f:
                 lectura = f.read()
 
             if usuario_guardado in lectura:

@@ -56,7 +56,7 @@ def login_interfaz(user, passwd):
     Usuario = user.get()
     Contraseña = passwd.get()
     Sesion = (f"{Usuario},{Contraseña}")
-    with open("base_de_datos.txt", "r") as f:
+    with open("Bases_de_datos/base_de_datos.txt", "r") as f:
         lectura = f.read()
     if Sesion in lectura :
         print("Bienvenido al systema")
@@ -72,7 +72,7 @@ def registro_interfaz(user, passwd):
     Usuario = user.get()
     Contraseña = passwd.get()
     registro = (f"{Usuario},{Contraseña}")
-    with open("base_de_datos.txt", "a", encoding="utf-8") as f:
+    with open("Bases_de_datos/base_de_datos.txt", "a", encoding="utf-8") as f:
         f.write(registro+"\n")
 
     tk.messagebox.showinfo("Operacion Completada", "Su cuenta ha sido registrada correctamente. Continue a iniciar sesión.")
@@ -285,7 +285,7 @@ def actualizar_hora(label_hora):
 
 
 def logout(var_ingreso, var_egreso, var_envio, var_total):
-    with open("recuerdame.txt", "w", encoding="utf-8") as f:
+    with open("Bases_de_datos/recuerdame.txt", "w", encoding="utf-8") as f:
         olvidar = ""
         f.write(olvidar)
 

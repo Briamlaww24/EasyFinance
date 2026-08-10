@@ -399,6 +399,9 @@ def Mostrar_ventana_principal(Usuario_actual):
         image=logo_casa_fondo,
         relief="flat",
         command=lambda: Mostrar_ventana_principal(Usuario_actual),
+        highlightthickness=2,
+        highlightbackground="#2E322E",
+        activebackground="#8FBC8F"
     )
     Boton_casa.image = logo_casa_fondo
     Boton_casa.place(x=8, y=8)
@@ -414,6 +417,9 @@ def Mostrar_ventana_principal(Usuario_actual):
         image=logo_grafico_fondo,
         relief="flat",
         command=lambda: Mostrar_ventana_graficos(Usuario_actual),
+        highlightthickness=2,
+        highlightbackground="#2E322E",
+        activebackground="#8FBC8F"
     )
     Boton_grafico.image = logo_grafico_fondo
     Boton_grafico.place(x=8, y=98)

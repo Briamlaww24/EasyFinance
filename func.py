@@ -301,4 +301,3 @@ def exportar_reporte_en_excel(Usuario_actual):
         os.system(f"cp Reporte-EasyFinance-{Usuario_actual}.xlsx ~/Desktop/Reporte-EasyFinance-{Usuario_actual}.xlsx")
         os.system(f"xdg-open ~/Desktop/Reporte-EasyFinance-{Usuario_actual}.xlsx")
 
-

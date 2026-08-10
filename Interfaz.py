@@ -4,6 +4,8 @@ from PIL import Image, ImageTk
 from tkinter import messagebox, ttk
 import func as fc
 from datetime import date
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 
 ##############################################################################
 ##############################################################################
@@ -866,6 +868,8 @@ def Mostrar_ventana_graficos(Usuario_actual):
         bg="#8FBC8F",
         width=100,
         height=800,
+        highlightthickness=1,
+        highlightbackground="#2E322E",
     )
     frame_menu.pack(
         fill="both", 
@@ -922,7 +926,21 @@ def Mostrar_ventana_graficos(Usuario_actual):
 
     ################################################################################
 
+    Figura_grafico = plt.figure(figsize=(16, 9), dpi=90)
+    Figura_grafico.patch.set_facecolor("#8FBC8F")
+    Figura_grafico.patch.set_alpha(1.0)
+    ax = Figura_grafico.add_subplot(111)
 
+    Grafico_canvas = FigureCanvasTkAgg(
+        Figura_grafico,
+        master=Main_window
+    )
+    Grafico_canvas.get_tk_widget().place(x=100, y=-20)
+
+    Grafico_canvas.draw()
+
+    Barra_de_Heramientas = NavigationToolbar2Tk(Grafico_canvas, Main_window)
+    Barra_de_Heramientas.update()
 
 
 Mostrar_ventana_login()

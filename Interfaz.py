@@ -6,6 +6,7 @@ import func as fc
 from datetime import date
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+import numpy as np
 
 ##############################################################################
 ##############################################################################
@@ -930,6 +931,57 @@ def Mostrar_ventana_graficos(Usuario_actual):
     Figura_grafico.patch.set_facecolor("#8FBC8F")
     Figura_grafico.patch.set_alpha(1.0)
     ax = Figura_grafico.add_subplot(111)
+
+    # Graficaa
+
+    resultado = fc.calcular_Punto_Equilibrio(Usuario_actual)
+
+    if resultado is None:
+        ax.text(
+            0.5, 0.5,
+            "No hay suficientes datos para calcular el punto de equilibrio.",
+            ha="center", va="center", fontsize=14, color="#2E322E",
+            transform=ax.transAxes
+        )
+    elif resultado["Alcanzable"] == False:
+        ax.text(
+            0.5, 0.5,
+            "El precio de venta no cubre el costo variable.\nNo existe punto de equilibrio alcanzable.",
+            ha="center", va="center", fontsize=14, color="#C0503B",
+            transform=ax.transAxes
+        )
+    else:
+        P = resultado["P"]
+        CV = resultado["CV"]
+        CF = resultado["CF"]
+        x_eq = resultado["X"]
+        ingreso_eq = resultado["Ingreso"]
+
+        x_max = x_eq * 2 if x_eq > 0 else 10
+        x = np.linspace(0, x_max, 100)
+        ingreso = P * x
+        costo = CF + CV * x
+
+        ax.plot(x, ingreso, label="Ingreso Total I(x)", color="#3FA66B", linewidth=2.5)
+        ax.plot(x, costo, label="Costo Total C(x)", color="#C0503B", linewidth=2.5)
+        ax.scatter([x_eq], [ingreso_eq], color="#1D7A6E", s=100, zorder=5, label="Punto de Equilibrio")
+
+        ax.annotate(
+            f"x = {x_eq:.1f} unidades\n$ {ingreso_eq:.2f}",
+            xy=(x_eq, ingreso_eq),
+            xytext=(x_eq + x_max * 0.05, ingreso_eq),
+            fontsize=11,
+            color="#2E322E"
+        )
+
+        ax.set_facecolor("#F7F4EC")
+        ax.set_xlabel("Unidades vendidas", fontsize=12, color="#2E322E")
+        ax.set_ylabel("Dinero", fontsize=12, color="#2E322E")
+        ax.set_title(f"Punto de Equilibrio - {Usuario_actual}", fontsize=15, fontweight="bold", color="#2E322E")
+        ax.legend(loc="upper left", fontsize=10)
+        ax.grid(True, linestyle="--", alpha=0.4)
+
+    ####################################################################################################################
 
     Grafico_canvas = FigureCanvasTkAgg(
         Figura_grafico,

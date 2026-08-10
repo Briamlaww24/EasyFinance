@@ -301,3 +301,53 @@ def exportar_reporte_en_excel(Usuario_actual):
         os.system(f"cp Reporte-EasyFinance-{Usuario_actual}.xlsx ~/Desktop/Reporte-EasyFinance-{Usuario_actual}.xlsx")
         os.system(f"xdg-open ~/Desktop/Reporte-EasyFinance-{Usuario_actual}.xlsx")
 
+
+def calcular_Punto_Equilibrio(Usuario_actual):
+    try:
+        df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
+    except FileNotFoundError:
+        return None
+
+    CF = 0
+    ingresos_totales = 0
+    unidades_vendidas = 0
+    envios_totales = 0
+
+    for index, item in enumerate(df["Tipo"]):
+        if item == "-(Egreso)":
+            CF += df["Precio"][index] * df["Cantidad"][index]
+
+    for index, item in enumerate(df["Tipo"]):
+        if item == "+(Ingreso)":
+            ingresos_totales += df["Precio"][index] * df["Cantidad"][index]
+            unidades_vendidas += df["Cantidad"][index]
+
+    for index, item in enumerate(df["Tipo"]):
+        if item == "-(Envio)":
+            envios_totales += df["Precio"][index] * df["Cantidad"][index]
+
+    if unidades_vendidas == 0:
+        return None
+
+    P = ingresos_totales / unidades_vendidas
+    CV = envios_totales / unidades_vendidas
+
+    if P <= CV:
+        return {
+            "Alcanzable": False,
+            "P": P,
+            "CV": CV,
+            "CF": CF
+        }
+
+    x_equilibrio = CF / (P - CV)
+    ingreso_equilibrio = P * x_equilibrio
+
+    return {
+        "Alcanzable": True,
+        "X": x_equilibrio,
+        "Ingreso": ingreso_equilibrio,
+        "P": P,
+        "CV": CV,
+        "CF": CF
+    }

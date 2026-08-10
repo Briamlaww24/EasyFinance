@@ -2,3 +2,6 @@
 __pycache__/
 .vscode/
 Reporte-EasyFinance-*
+Interfaz.onefile-build/
+Interfaz.dist/
+Interfaz.build/

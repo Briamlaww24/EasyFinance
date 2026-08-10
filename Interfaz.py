@@ -355,6 +355,7 @@ var_utililidad_egresos = tk.DoubleVar(value=0.00)
 var_utililidad = tk.DoubleVar(value=0.00)
 
 def Mostrar_ventana_principal(Usuario_actual):
+
     for widget in Main_window.winfo_children():
         widget.destroy()
 
@@ -721,8 +722,9 @@ def Mostrar_ventana_principal(Usuario_actual):
         font=("Serif", 15, "bold"),
         bg="#8FBC8F",
         fg="#2E322E",
-    ).place(x=100, y="377")
-    fc.actualizar_hora(frame_registrar_operacion, Texto_Fecha)
+    )
+    Texto_Fecha.place(x=100, y="377")
+    Texto_Fecha.after(1000, lambda: fc.actualizar_hora(Texto_Fecha))
 
     Registrar_todo = tk.Button(
         frame_registrar_operacion,

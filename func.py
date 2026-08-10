@@ -278,11 +278,11 @@ def calcular_utilidades_totales(Usuario_actual, var_ingreso, var_egreso, var_env
         var_total.set(0.00)
 
 
-def actualizar_hora(frame, label_hora):
+def actualizar_hora(label_hora):
 
     Actualizar_hora_actual = Obtener_fecha_actual()
-    label_hora.config(text=Actualizar_hora_actual)
-    frame.after(1000, actualizar_hora)
+    label_hora.config(text=f"Nota: La operacion se registrara con la fecha actual. \n ({Actualizar_hora_actual})")
+
 
 def logout(var_ingreso, var_egreso, var_envio, var_total):
     with open("recuerdame.txt", "w", encoding="utf-8") as f:

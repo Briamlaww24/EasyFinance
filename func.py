@@ -10,7 +10,7 @@ from pandas import DataFrame, read_excel, concat
 ###############################################################################
 ###############################################################################
 
-datos_nuevos = {
+datNuevos = {
     'Fecha': [],
     'Producto': [],
     'Precio': [],
@@ -18,25 +18,25 @@ datos_nuevos = {
     'Tipo': []
 }
 
-datos_utilidad = {
+datosUtil = {
     'Ingresos Totales': [],
     'Egresos Totales': [],
     'Envíos Totales': [],
     'Utilidad Neta': []
 }
 
-fecha_actual = date.today().strftime("%Y/%m/%d")
-fecha_actual2 = date.today().strftime("%Y-%m-%d")
-Hora_actual = datetime.now().strftime("%H:%M:%S")
+fechaActual = date.today().strftime("%Y/%m/%d")
+fechaActualDos = date.today().strftime("%Y-%m-%d")
+horActual = datetime.now().strftime("%H:%M:%S")
 
 
 ###############################################################################
 ###############################################################################
 
 
-def formatear_excel(Usuario_actual):
+def formatear_excel(usrActual):
 
-    Excel = load_workbook(f"Reporte-EasyFinance-{Usuario_actual}.xlsx")
+    Excel = load_workbook(f"Reporte-EasyFinance-{usrActual}.xlsx")
     hoja = Excel["Datos"]
 
     color_fondo = PatternFill(
@@ -49,15 +49,15 @@ def formatear_excel(Usuario_actual):
         celda.fill = color_fondo
         celda.alignment = Alignment(horizontal="center")
 
-    Excel.save(f"Reporte-EasyFinance-{Usuario_actual}.xlsx")
+    Excel.save(f"Reporte-EasyFinance-{usrActual}.xlsx")
 
 def login_interfaz(user, passwd):
 
     Usuario = user.get()
     Contraseña = passwd.get()
     Sesion = (f"{Usuario},{Contraseña}")
-    with open("Bases_de_datos/base_de_datos.txt", "r") as f:
-        lectura = f.read()
+    with open("basesdedatos/base_de_datos.txt", "r") as lectarchvo:
+        lectura = lectarchvo.read()
     if Sesion in lectura :
         print("Bienvenido al systema")
         from Interfaz import Mostrar_ventana_principal
@@ -69,11 +69,11 @@ def login_interfaz(user, passwd):
 
 def registro_interfaz(user, passwd):
 
-    Usuario = user.get()
-    Contraseña = passwd.get()
-    registro = (f"{Usuario},{Contraseña}")
-    with open("Bases_de_datos/base_de_datos.txt", "a", encoding="utf-8") as f:
-        f.write(registro+"\n")
+    usr = user.get()
+    contrsña = passwd.get()
+    regist = (f"{usr},{contrsña}")
+    with open("basesdedatos/base_de_datos.txt", "a", encoding="utf-8") as f:
+        f.write(regist+"\n")
 
     tk.messagebox.showinfo("Operacion Completada", "Su cuenta ha sido registrada correctamente. Continue a iniciar sesión.")
 
@@ -93,17 +93,17 @@ def Obtener_fecha_actual():
         12: "Diciembre"
     }
 
-    fecha_actual = datetime.now()
-    dia = fecha_actual.day
-    mes = meses[fecha_actual.month]
-    anio = fecha_actual.year
+    fechaAct = datetime.now()
+    dia = fechaAct.day
+    mes = meses[fechaAct.month]
+    año = fechaAct.year
 
-    formateo_fecha = f"{dia} de {mes} de {anio}"
-    return formateo_fecha
+    formatFecha = f"{dia} de {mes} de {año}"
+    return formatFecha
 
-def registrar_operacion_interfaz(tipo_operacion, descripcion, monto, cantidad, Usuario_actual, utililidad, utilidad_egresos, utilidad_envios, utlidad_total, Label_utlidad_total):
+def registrar_operacion_interfaz(tipoOp, desc, monto, cant, usrAct, util, utilEgr, utilEnv, utilTot, LabelUtlidadTot):
 
-    datos_nuevos = {
+    datNuevos = {
     'Fecha': [],
     'Producto': [],
     'Precio': [],
@@ -112,102 +112,102 @@ def registrar_operacion_interfaz(tipo_operacion, descripcion, monto, cantidad, U
     }
 
     fecha = date.today().strftime("%Y-%m-%d")
-    datos_nuevos["Fecha"] = fecha
+    datNuevos["Fecha"] = fecha
 
-    producto = descripcion.get()
-    datos_nuevos["Producto"] = producto
+    producto = desc.get()
+    datNuevos["Producto"] = producto
 
     precio = monto.get()
-    datos_nuevos["Precio"] = precio
+    datNuevos["Precio"] = precio
 
-    cantidad_de_productos = cantidad.get()
-    datos_nuevos["Cantidad"] = cantidad_de_productos
+    cantProductos = cant.get()
+    datNuevos["Cantidad"] = cantProductos
 
-    tipo = tipo_operacion.get()
-    datos_nuevos["Tipo"] = tipo
+    tipo = tipoOp.get()
+    datNuevos["Tipo"] = tipo
 
-    if producto == "" or precio == "" or cantidad_de_productos == "" or tipo == "" :
+    if producto == "" or precio == "" or cantProductos == "" or tipo == "" :
         tk.messagebox.showerror("Error", "Ninguno de los campos debe estar vacio para poder registrar una operación")
 
     else:
         
         try:
-            df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
+            df = read_excel(f"Reporte-EasyFinance-{usrAct}.xlsx", sheet_name="Datos")
 
         except FileNotFoundError:
             df = DataFrame(columns=["Fecha", "Producto", "Precio", "Cantidad", "Tipo"])
 
-        df = concat([df, DataFrame([datos_nuevos])], ignore_index=True)
-        df.to_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", index=False, sheet_name="Datos")
+        df = concat([df, DataFrame([datNuevos])], ignore_index=True)
+        df.to_excel(f"Reporte-EasyFinance-{usrAct}.xlsx", index=False, sheet_name="Datos")
 
-        formatear_excel(Usuario_actual)
+        formatear_excel(usrAct)
 
         if tipo == "+(Ingreso)":
-            resultado_utilidad = utililidad.get() + (float(precio) * int(cantidad_de_productos))
-            utililidad.set(f"{resultado_utilidad:.2f}")
+            resultUtil = util.get() + (float(precio) * int(cantProductos))
+            util.set(f"{resultUtil:.2f}")
         elif tipo == "-(Egreso)":
-            resultado_utilidad = utilidad_egresos.get() + (float(precio) * int(cantidad_de_productos))
-            utilidad_egresos.set(f"{resultado_utilidad:.2f}")
+            resultUtil = utilEgr.get() + (float(precio) * int(cantProductos))
+            utilEgr.set(f"{resultUtil:.2f}")
         elif tipo == "-(Envio)":
-            resultado_utilidad = utilidad_envios.get() + (float(precio) * int(cantidad_de_productos))
-            utilidad_envios.set(f"{resultado_utilidad:.2f}")
+            resultUtil = utilEnv.get() + (float(precio) * int(cantProductos))
+            utilEnv.set(f"{resultUtil:.2f}")
         
-        resultado_utilidad_total = utililidad.get() - (utilidad_egresos.get() + utilidad_envios.get())
-        utlidad_total.set(f"{resultado_utilidad_total:.2f}")
+        resultado_utilidad_total = util.get() - (utilEgr.get() + utilEnv.get())
+        utilTot.set(f"{resultado_utilidad_total:.2f}")
 
-        if utlidad_total.get() <= 0:
-            Label_utlidad_total.configure(
+        if utilTot.get() <= 0:
+            LabelUtlidadTot.configure(
                 fg="#C0503B"
             )
         else:
-            Label_utlidad_total.configure(
+            LabelUtlidadTot.configure(
                 fg="#3FA66B"
             )
 
         #####################################################################################
 
-        limpiar_widgets(descripcion)
+        limpiar_widgets(desc)
         limpiar_widgets(monto)
-        limpiar_widgets(cantidad)
+        limpiar_widgets(cant)
         # tipo_operacion.set("")
 
         #####################################################################################
 
         tk.messagebox.showinfo("Operacion Registrada", "Su operacion ha sido registrada correctamente en el sistema.")
 
-    return utililidad, utilidad_egresos, utilidad_envios, utlidad_total
+    return util, utilEgr, utilEnv, utilTot
 
 def limpiar_widgets(widget):
     widget.delete(0, "end")
 
 
-def definir_color_botones_ingreso(tipo_operacion, registrar_ingreso, registrar_egreso, registrar_envio):
-    if tipo_operacion.get() == "":
-        registrar_ingreso.configure(bg="#1D7A6E")
-        registrar_egreso.configure(bg="#1D7A6E")
-        registrar_envio.configure(bg="#1D7A6E")
+def definir_color_botones_ingreso(tipOper, regisIngr, registEgr, registEnv):
+    if tipOper.get() == "":
+        regisIngr.configure(bg="#1D7A6E")
+        registEgr.configure(bg="#1D7A6E")
+        registEnv.configure(bg="#1D7A6E")
 
-    elif tipo_operacion.get() == "+(Ingreso)":
-        registrar_ingreso.configure(bg="#3FA66B")
-        registrar_egreso.configure(bg="#1D7A6E")
-        registrar_envio.configure(bg="#1D7A6E")
+    elif tipOper.get() == "+(Ingreso)":
+        regisIngr.configure(bg="#3FA66B")
+        registEgr.configure(bg="#1D7A6E")
+        registEnv.configure(bg="#1D7A6E")
 
-    elif tipo_operacion.get() == "-(Egreso)":
-        registrar_egreso.configure(bg="#3FA66B")
-        registrar_ingreso.configure(bg="#1D7A6E")
-        registrar_envio.configure(bg="#1D7A6E")
+    elif tipOper.get() == "-(Egreso)":
+        registEgr.configure(bg="#3FA66B")
+        regisIngr.configure(bg="#1D7A6E")
+        registEnv.configure(bg="#1D7A6E")
 
-    elif tipo_operacion.get() == "-(Envio)":
-        registrar_envio.configure(bg="#3FA66B")
-        registrar_ingreso.configure(bg="#1D7A6E")
-        registrar_egreso.configure(bg="#1D7A6E")
+    elif tipOper.get() == "-(Envio)":
+        registEnv.configure(bg="#3FA66B")
+        regisIngr.configure(bg="#1D7A6E")
+        registEgr.configure(bg="#1D7A6E")
 
-def cargar_tabla_transacciones(Tree, Usuario):
+def cargar_tabla_transacciones(Tree, usr):
     for item in Tree.get_children():
         Tree.delete(item)
 
     try:
-        df = read_excel(f"Reporte-EasyFinance-{Usuario}.xlsx", sheet_name="Datos")
+        df = read_excel(f"Reporte-EasyFinance-{usr}.xlsx", sheet_name="Datos")
 
     except FileNotFoundError:
         df = DataFrame(columns=["Fecha", "Producto", "Precio", "Cantidad", "Tipo"])
@@ -230,109 +230,109 @@ def cargar_tabla_transacciones(Tree, Usuario):
             ),
         )
 
-def calcular_utilidades_totales(Usuario_actual, var_ingreso, var_egreso, var_envio, var_total, Label_utlidad_total):
-    ingreso = 0
-    egreso = 0
-    envio = 0
+def calcular_utilidades_totales(usrAct, varIngr, varEgr, varEnv, varTot, LabelUtlTot):
+    ingr = 0
+    egr = 0
+    env = 0
     total = 0
 
     try:
-        df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
+        df = read_excel(f"Reporte-EasyFinance-{usrAct}.xlsx", sheet_name="Datos")
     
 
-        for index, item in enumerate(df["Tipo"]):
-            if item == "+(Ingreso)":
-                ingreso += df["Precio"][index] * df["Cantidad"][index]
+        for ind, it in enumerate(df["Tipo"]):
+            if it == "+(Ingreso)":
+                ingr += df["Precio"][ind] * df["Cantidad"][ind]
 
-        for index, item in enumerate(df["Tipo"]):
-            if item == "-(Egreso)":
-                egreso += df["Precio"][index] * df["Cantidad"][index]
+        for ind, it in enumerate(df["Tipo"]):
+            if it == "-(Egreso)":
+                egr += df["Precio"][ind] * df["Cantidad"][ind]
 
-        for index, item in enumerate(df["Tipo"]):
-            if item == "-(Envio)":
-                envio += df["Precio"][index] * df["Cantidad"][index]
+        for ind, it in enumerate(df["Tipo"]):
+            if it == "-(Envio)":
+                env += df["Precio"][ind] * df["Cantidad"][ind]
 
-        total = ingreso - (egreso + envio)
+        total = ingr - (egr + env)
 
-        var_ingreso.set(f"{ingreso:.2f}")
-        var_egreso.set(f"{egreso:.2f}")
-        var_envio.set(f"{envio:.2f}")
-        var_total.set(f"{total:.2f}")
+        varIngr.set(f"{ingr:.2f}")
+        varEgr.set(f"{egr:.2f}")
+        varEnv.set(f"{env:.2f}")
+        varTot.set(f"{total:.2f}")
 
-        if var_total.get() <= 0:
-            Label_utlidad_total.configure(
+        if varTot.get() <= 0:
+            LabelUtlTot.configure(
                 fg="#C0503B"
             )
         else:
-            Label_utlidad_total.configure(
+            LabelUtlTot.configure(
                 fg="#3FA66B"
             )
 
-        return var_ingreso, var_egreso, var_envio, var_total
+        return varIngr, varEgr, varEnv, varTot
 
     except:
 
-        var_ingreso.set(0.00)
-        var_egreso.set(0.00)
-        var_envio.set(0.00)
-        var_total.set(0.00)
+        varIngr.set(0.00)
+        varEgr.set(0.00)
+        varEnv.set(0.00)
+        varTot.set(0.00)
 
 
-def actualizar_hora(label_hora):
+def actualizar_hora(labelHor):
 
-    Actualizar_hora_actual = Obtener_fecha_actual()
-    label_hora.config(text=f"Nota: La operacion se registrara con la fecha actual. \n ({Actualizar_hora_actual})")
+    actHoraAct = Obtener_fecha_actual()
+    labelHor.config(text=f"Nota: La operacion se registrara con la fecha actual. \n ({actHoraAct})")
 
 
-def logout(var_ingreso, var_egreso, var_envio, var_total):
-    with open("Bases_de_datos/recuerdame.txt", "w", encoding="utf-8") as f:
-        olvidar = ""
-        f.write(olvidar)
+def logout(varIngr, varEgr, varEnv, varTot):
+    with open("basesdedatos/recuerdame.txt", "w", encoding="utf-8") as lectarchv:
+        olv = ""
+        lectarchv.write(olv)
 
-    var_ingreso.set("0.00")
-    var_egreso.set("0.00")
-    var_envio.set("0.00")
-    var_total.set("0.00")
+    varIngr.set("0.00")
+    varEgr.set("0.00")
+    varEnv.set("0.00")
+    varTot.set("0.00")
 
-def exportar_reporte_en_excel(Usuario_actual):
+def exportar_reporte_en_excel(usrAct):
     try:
         tk.messagebox.showinfo("Exportando Reporte", "El reporte de EasyFinance se exportara en su escritorio en formato excel (.xlsx)")
-        os.system(f"cp Reporte-EasyFinance-{Usuario_actual}.xlsx ~/Escritorio/Reporte-EasyFinance-{Usuario_actual}.xlsx")
-        os.system(f"xdg-open ~/Escritorio/Reporte-EasyFinance-{Usuario_actual}.xlsx")
+        os.system(f"cp Reporte-EasyFinance-{usrAct}.xlsx ~/Escritorio/Reporte-EasyFinance-{usrAct}.xlsx")
+        os.system(f"xdg-open ~/Escritorio/Reporte-EasyFinance-{usrAct}.xlsx")
     except FileNotFoundError:
-        os.system(f"cp Reporte-EasyFinance-{Usuario_actual}.xlsx ~/Desktop/Reporte-EasyFinance-{Usuario_actual}.xlsx")
-        os.system(f"xdg-open ~/Desktop/Reporte-EasyFinance-{Usuario_actual}.xlsx")
+        os.system(f"cp Reporte-EasyFinance-{usrAct}.xlsx ~/Desktop/Reporte-EasyFinance-{usrAct}.xlsx")
+        os.system(f"xdg-open ~/Desktop/Reporte-EasyFinance-{usrAct}.xlsx")
 
 
-def calcular_Punto_Equilibrio(Usuario_actual):
+def calcular_Punto_Equilibrio(usrAct):
     try:
-        df = read_excel(f"Reporte-EasyFinance-{Usuario_actual}.xlsx", sheet_name="Datos")
+        df = read_excel(f"Reporte-EasyFinance-{usrAct}.xlsx", sheet_name="Datos")
     except FileNotFoundError:
         return None
 
     CF = 0
-    ingresos_totales = 0
-    unidades_vendidas = 0
-    envios_totales = 0
+    ingrTot = 0
+    unidVend = 0
+    envTot = 0
 
-    for index, item in enumerate(df["Tipo"]):
-        if item == "-(Egreso)":
-            CF += df["Precio"][index] * df["Cantidad"][index]
+    for ind, it in enumerate(df["Tipo"]):
+        if it == "-(Egreso)":
+            CF += df["Precio"][ind] * df["Cantidad"][ind]
 
-    for index, item in enumerate(df["Tipo"]):
-        if item == "+(Ingreso)":
-            ingresos_totales += df["Precio"][index] * df["Cantidad"][index]
-            unidades_vendidas += df["Cantidad"][index]
+    for ind, it in enumerate(df["Tipo"]):
+        if it == "+(Ingreso)":
+            ingrTot += df["Precio"][ind] * df["Cantidad"][ind]
+            unidVend += df["Cantidad"][ind]
 
-    for index, item in enumerate(df["Tipo"]):
-        if item == "-(Envio)":
-            envios_totales += df["Precio"][index] * df["Cantidad"][index]
+    for ind, it in enumerate(df["Tipo"]):
+        if it == "-(Envio)":
+            envTot += df["Precio"][ind] * df["Cantidad"][ind]
 
-    if unidades_vendidas == 0:
+    if unidVend == 0:
         return None
 
-    P = ingresos_totales / unidades_vendidas
-    CV = envios_totales / unidades_vendidas
+    P = ingrTot / unidVend
+    CV = envTot / unidVend
 
     if P <= CV:
         return {
@@ -342,13 +342,13 @@ def calcular_Punto_Equilibrio(Usuario_actual):
             "CF": CF
         }
 
-    x_equilibrio = CF / (P - CV)
-    ingreso_equilibrio = P * x_equilibrio
+    xEquil = CF / (P - CV)
+    ingrEquil = P * xEquil
 
     return {
         "Alcanzable": True,
-        "X": x_equilibrio,
-        "Ingreso": ingreso_equilibrio,
+        "X": xEquil,
+        "Ingreso": ingrEquil,
         "P": P,
         "CV": CV,
         "CF": CF

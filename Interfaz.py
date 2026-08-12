@@ -8,8 +8,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import numpy as np
 
-##############################################################################
-##############################################################################
+#####################################################################################
 
 def login_interfaz(user, passwd, recuerdame):
 
@@ -40,8 +39,7 @@ def login_interfaz(user, passwd, recuerdame):
         print("Error")
         tk.messagebox.showerror("Error", "Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.")
 
-################################################################################
-################################################################################
+#####################################################################################
 
 Main_window = tk.Tk()
 Main_window.title("EasyFinance")
@@ -70,7 +68,6 @@ def Mostrar_ventana_login():
     for widget in Main_window.winfo_children():
         widget.destroy()
     
-
     frame_login = tk.Frame(
         Main_window,
         bg="#F7F4EC",
@@ -117,7 +114,6 @@ def Mostrar_ventana_login():
     )
     Inicio_sesion.pack(pady=50, padx=127)
 
-
     Texto_Sesion = tk.Label(
         Frame_botones,
         text="Ingrese su nombre de usuario:",
@@ -157,8 +153,6 @@ def Mostrar_ventana_login():
     )
     Ingreso__passwd.place(y=320, x=15)
 
-    
-
     tk.Checkbutton(
         Frame_botones,
         variable=recuerdame,
@@ -174,8 +168,6 @@ def Mostrar_ventana_login():
         highlightthickness=0
         
     ).place(y=360, x=15)
-
-  
 
     Boton_ingresar = tk.Button(
         Frame_botones,
@@ -222,8 +214,6 @@ def Mostrar_ventana_login():
         highlightbackground="#2E322E",
         command=Mostrar_ventana_registro,
         relief="flat",
-
-
     )
     No_tiene_cuenta.place(y=750, x=100)
 
@@ -273,7 +263,6 @@ def Mostrar_ventana_registro():
     )
     Inicio_sesion.place(y=50, x=100)
 
-
     Texto_Sesion = tk.Label(
         Frame_botones,
         text="Ingrese su nuevo usuario:",
@@ -292,7 +281,6 @@ def Mostrar_ventana_registro():
         relief="solid"
     )
     Ingreso__sesion.place(y=240, x=15)
-
 
     Texto_Sesion = tk.Label(
         Frame_botones,
@@ -374,7 +362,7 @@ def Mostrar_ventana_principal(Usuario_actual):
 
     Main_window.configure(bg="#F7F4EC")
 
-    ###########################################################################################
+    #####################################################################################
 
     frame_menu = tk.Frame(
         Main_window,
@@ -441,8 +429,7 @@ def Mostrar_ventana_principal(Usuario_actual):
     Boton_logout.image = logo_logout_fondo
     Boton_logout.place(x=8, y=710)
 
-
-    ###########################################################################################
+    #####################################################################################
 
     tk.Label(
         Main_window,
@@ -460,8 +447,9 @@ def Mostrar_ventana_principal(Usuario_actual):
         font=("Serif", 15, "bold")
     ).place(x=135, y=60)
 
- #######################################################
- # Frame de la Utilidad
+    #####################################################################################
+    
+    # Frame de la Utilidad
 
     frame_utilidad = tk.Frame(
         Main_window,
@@ -579,7 +567,7 @@ def Mostrar_ventana_principal(Usuario_actual):
 
     fc.calcular_utilidades_totales(Usuario_actual, var_utililidad, var_utililidad_egresos, var_utililidad_envios, var_utililidad_total, Utilidad_total)
 
- #########################################################
+    #####################################################################################
 
     frame_registrar_operacion = tk.Frame(
         Main_window,
@@ -653,7 +641,6 @@ def Mostrar_ventana_principal(Usuario_actual):
             operacion.set(tipo)
             fc.definir_color_botones_ingreso(tipo_operacion, registrar_ingreso, registrar_egreso, registrar_envio)
     
-
     tk.Label(
         frame_registrar_operacion,
         text="Pequeña Descripción: ",
@@ -747,8 +734,7 @@ def Mostrar_ventana_principal(Usuario_actual):
     )
     Registrar_todo.place(x=59, y=535)
 
-    ##############################################################################
-    ##############################################################################
+    #####################################################################################
 
     frame_tabla_excel = tk.Frame(
         Main_window,
@@ -768,8 +754,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         "Treeview",
         background="#F7F4EC",
         fieldbackground="#F7F4EC",
-        foreground="#2E322E"
-                     
+        foreground="#2E322E"             
     )
     Estilo.configure(
         "Treeview.Heading",
@@ -783,7 +768,7 @@ def Mostrar_ventana_principal(Usuario_actual):
         background=[("active", "#3FA66B")]
     )
 
-    ########################################################
+    #####################################################################################
 
     tabla = ttk.Treeview(
         frame_tabla_excel,
@@ -791,10 +776,8 @@ def Mostrar_ventana_principal(Usuario_actual):
         show="headings",
         yscrollcommand=rueda_y.set,
         height=26,
-        
     )
     tabla.pack(fill="both", expand=True)
-
 
     rueda_y.config(command=tabla.yview)
 
@@ -870,7 +853,7 @@ def Mostrar_ventana_graficos(Usuario_actual):
 
     Main_window.configure(bg="#F7F4EC")
 
-    ###########################################################################################
+    #####################################################################################
 
     frame_menu = tk.Frame(
         Main_window,
@@ -933,7 +916,7 @@ def Mostrar_ventana_graficos(Usuario_actual):
     Boton_logout.image = logo_logout_fondo
     Boton_logout.place(x=8, y=710)
 
-    ################################################################################
+    #####################################################################################
 
     Figura_grafico = plt.figure(figsize=(16, 9), dpi=90)
     Figura_grafico.patch.set_facecolor("#8FBC8F")
@@ -1001,7 +984,6 @@ def Mostrar_ventana_graficos(Usuario_actual):
 
     Barra_de_Heramientas = NavigationToolbar2Tk(Grafico_canvas, Main_window)
     Barra_de_Heramientas.update()
-
 
 Mostrar_ventana_login()
 Main_window.mainloop()
